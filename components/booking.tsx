@@ -9,7 +9,7 @@ export function Book() {
     name: "",
     age: "",
     date: "",
-    time: "10:30", // store 24-hour time string here (e.g. "14:00")
+    time: "00:00", // store 24-hour time string here (e.g. "14:00")
     phone: "",
   });
   const [submitSuccess, setSubmitSuccess] = useState(false);
