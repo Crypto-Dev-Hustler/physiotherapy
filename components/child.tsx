@@ -15,7 +15,7 @@ export function ChildSection() {
             </div>
             <div className="flex flex-col justify-center lg:w-1/2 pl-5 pr-8">
                 <div className="lg:text-4xl text-3xl font-bold text-white pb-4 pt-4">
-                    Child Physiotherapy
+                    Child Therapies
                 </div>
                 <div className="pb-8 text-white">
                     Our pediatric physiotherapy services are designed to address the unique needs of children with developmental, neurological, or orthopedic conditions. We use play-based therapy techniques to make sessions engaging and effective for young patients.
