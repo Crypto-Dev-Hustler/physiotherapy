@@ -14,7 +14,7 @@ export function AdultSection() {
             </div>
             <div className="flex flex-col justify-center lg:w-1/2 pl-5 pr-8">
                 <div className="lg:text-4xl text-3xl font-bold text-gray-900 pb-4 pt-4">
-                    Adult Physiotherapy
+                    Adult Therapies
                 </div>
                 <div className="pb-8">
                     Our adult physiotherapy services focus on rehabilitation, pain management, and improving mobility for various conditions. Our experienced therapists develop personalized treatment plans to help you recover and regain your quality of life.
