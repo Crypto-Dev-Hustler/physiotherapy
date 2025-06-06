@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import "react-time-picker/dist/TimePicker.css";
-import TimePicker from "react-time-picker";
+import TimePicker from "@/components/TimePickerWrapper";
 
 export function Book() {
   const [form, setForm] = useState({
     name: "",
     age: "",
     date: "",
-    time: "", // store 24-hour time string here (e.g. "14:00")
+    time: "10:30", // store 24-hour time string here (e.g. "14:00")
     phone: "",
   });
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -188,7 +188,7 @@ export function Book() {
               name="time"
               onChange={handleTimeChange}
               value={form.time || null}
-              disableClock={true}
+              disableClock={false}
               className="mb-4"
               clearIcon={null}
             />
