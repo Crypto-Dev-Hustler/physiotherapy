@@ -143,7 +143,7 @@ export function Book() {
               id="phone"
               name="phone"
               type="tel"
-              placeholder="+1 234 567 8900"
+              placeholder="12345 67890"
               className="border border-gray-400 rounded-sm h-8 mr-4 p-4"
               value={form.phone}
               onChange={handleChange}
