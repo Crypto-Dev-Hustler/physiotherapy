@@ -321,8 +321,8 @@ export default function DashboardPage() {
                     {appointments.length > 0 ? (
                       <>
                         Found <strong>{appointments.length}</strong> appointment
-                        {appointments.length !== 1 ? "s" : ""} matching "
-                        <strong>{searchTerm}</strong>" at position
+                        {appointments.length !== 1 ? "s" : ""} matching &quot;
+                        <strong>{searchTerm}</strong>&quot; at position
                         {appointments.length !== 1 ? "s" : ""}:{" "}
                         <strong>#{originalSequenceNumbers.join(", #")}</strong>
                       </>

@@ -1,6 +1,16 @@
 "use client";
 
 import type React from "react";
+type AppointmentDetails = {
+  id: string;
+  name: string;
+  phone: string;
+  age: number;
+  gender: "male" | "female" | "other";
+  date: string;
+  time: string;
+  status: string;
+};
 
 import { useState, useEffect } from "react";
 import {
@@ -27,7 +37,11 @@ export default function Book() {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [showThankYou, setShowThankYou] = useState(false);
-  const [appointmentDetails, setAppointmentDetails] = useState<any>(null);
+  // const [appointmentDetails, setAppointmentDetails] = useState<any>(null);
+  // const [appointmentDetails, setAppointmentDetails] = useState<any>(null);
+  const [appointmentDetails, setAppointmentDetails] =
+    useState<AppointmentDetails | null>(null);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
