@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
 
 export function ChildNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
+    setIsMenuOpen(!isMenuOpen);
   };
 
   useEffect(() => {
@@ -21,24 +21,26 @@ export function ChildNavbar() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    setIsMenuOpen(false)
-    const element = document.getElementById(sectionId)
+    setIsMenuOpen(false);
+    const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   return (
-    <header className={`sticky top-0 z-50 bg-white w-full shadow-md ${
-        isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
-    }`}>
+    <header
+      className={`sticky top-0 z-50 bg-white w-full shadow-md ${
+        isScrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4"
+      }`}
+    >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center">
           <Link href="/" className="text-2xl font-bold text-blue-600">
@@ -72,16 +74,20 @@ export function ChildNavbar() {
           >
             Our Doctors
           </button>
-          <button
+          {/* <button
             onClick={() => scrollToSection("/#booking")}
             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
           >
             Book Appointment
-          </button>
+          </button> */}
         </nav>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-gray-700" onClick={toggleMenu} aria-label="Toggle menu">
+        <button
+          className="md:hidden text-gray-700"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -124,5 +130,5 @@ export function ChildNavbar() {
         </div>
       )}
     </header>
-  )
+  );
 }
