@@ -374,7 +374,7 @@ export default function Book() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || "Invalid data");
+        throw new Error(result.error || "Error in uploading data");
       }
 
       setAppointmentDetails(result.appointment);
