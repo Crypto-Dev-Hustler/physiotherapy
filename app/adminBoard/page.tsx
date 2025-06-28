@@ -329,7 +329,7 @@ export default function DashboardPage() {
                     ) : (
                       <>
                         <strong>Not found:</strong> No appointments found
-                        matching "<strong>{searchTerm}</strong>"
+                        matching &quot;<strong>{searchTerm}</strong>&quot;
                       </>
                     )}
                   </p>
