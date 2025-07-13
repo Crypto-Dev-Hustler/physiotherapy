@@ -1,0 +1,95 @@
+/* Mobile-specific optimizations */
+@media (max-width: 767px) {
+  /* Improve touch targets */
+  button,
+  input,
+  select {
+    min-height: 44px;
+  }
+
+  /* Smooth scrolling for horizontal calendars */
+  .scroll-area {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbars but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Remove default button styles on mobile */
+  button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+  }
+
+  /* Prevent zoom on input focus (iOS) */
+  input[type="text"],
+  input[type="tel"],
+  input[type="number"],
+  select {
+    font-size: 16px !important;
+  }
+
+  /* Enhanced touch feedback */
+  .touch-feedback {
+    transition: transform 0.1s ease-in-out;
+  }
+
+  .touch-feedback:active {
+    transform: scale(0.98);
+  }
+
+  /* Better focus states for accessibility */
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+
+  /* Smooth momentum scrolling */
+  .overflow-x-auto {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 767px) and (orientation: landscape) {
+  .calendar-container {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .calendar-date-button {
+    border-width: 0.5px;
+  }
+}
+
+/* Smooth scroll animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.date-card {
+  animation: slideIn 0.3s ease-out;
+}

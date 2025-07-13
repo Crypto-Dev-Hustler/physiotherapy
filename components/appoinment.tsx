@@ -12,7 +12,7 @@ type AppointmentDetails = {
   status: string;
 };
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -25,22 +25,28 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { useMobileTouch } from "./hooks/use-mobile-touch";
+import "./styles/mobile-calendar.css";
 
 export default function Book() {
   const [today, setToday] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
-  const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  const [selectedDate, setSelectedDate] = useState<{
+    day: number;
+    month: number;
+    year: number;
+  } | null>(null);
   const [selectedTime, setSelectedTime] = useState("10:00 am");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [showThankYou, setShowThankYou] = useState(false);
-  // const [appointmentDetails, setAppointmentDetails] = useState<any>(null);
-  // const [appointmentDetails, setAppointmentDetails] = useState<any>(null);
   const [appointmentDetails, setAppointmentDetails] =
     useState<AppointmentDetails | null>(null);
+  const { isMobile, isLandscape } = useMobileTouch();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -65,23 +71,13 @@ export default function Book() {
         newToday.getFullYear() !== currentToday.getFullYear()
       ) {
         setToday(newToday);
-        if (
-          currentMonth === currentToday.getMonth() &&
-          currentYear === currentToday.getFullYear() &&
-          (newToday.getMonth() !== currentToday.getMonth() ||
-            newToday.getFullYear() !== currentToday.getFullYear())
-        ) {
-          setCurrentMonth(newToday.getMonth());
-          setCurrentYear(newToday.getFullYear());
-          setSelectedDate(null);
-        }
       }
     };
 
     const interval = setInterval(updateDate, 60000);
     updateDate();
     return () => clearInterval(interval);
-  }, [today, currentMonth, currentYear]);
+  }, [today]);
 
   // Name validation
   const validateName = (value: string) => {
@@ -105,7 +101,6 @@ export default function Book() {
       return false;
     }
 
-    // Check for valid characters (letters, spaces, hyphens, apostrophes)
     const nameRegex = /^[a-zA-Z\s\-'.]+$/;
     if (!nameRegex.test(trimmedValue)) {
       setNameError(
@@ -115,7 +110,6 @@ export default function Book() {
       return false;
     }
 
-    // Check for at least one letter
     if (!/[a-zA-Z]/.test(trimmedValue)) {
       setNameError("Name must contain at least one letter");
       setNameValid(false);
@@ -137,7 +131,6 @@ export default function Book() {
       return false;
     }
 
-    // Remove all non-digit characters for validation
     const digitsOnly = trimmedValue.replace(/\D/g, "");
 
     if (digitsOnly.length === 0) {
@@ -158,14 +151,12 @@ export default function Book() {
       return false;
     }
 
-    // Check if it's exactly 10 digits
     if (digitsOnly.length !== 10) {
       setPhoneError("Phone number must be exactly 10 digits");
       setPhoneValid(false);
       return false;
     }
 
-    // Check for valid 10-digit phone format
     const phoneRegex = /^[6-9]\d{9}$/;
     if (!phoneRegex.test(digitsOnly)) {
       setPhoneError("Phone number must start with 6, 7, 8, or 9");
@@ -222,7 +213,6 @@ export default function Book() {
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // Only allow digits and limit to 10 characters
     const digitsOnly = value.replace(/\D/g, "").slice(0, 10);
     setPhone(digitsOnly);
     validatePhone(digitsOnly);
@@ -261,6 +251,103 @@ export default function Book() {
     "December",
   ];
 
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const shortDayNames = ["S", "M", "T", "W", "T", "F", "S"];
+
+  // Generate continuous horizontal dates for scrolling
+  const generateContinuousHorizontalDates = () => {
+    const dates = [];
+    const startDate = new Date(today);
+
+    // Generate dates for next 90 days (3 months)
+    for (let i = 0; i < 90; i++) {
+      const currentDate = new Date(startDate);
+      currentDate.setDate(startDate.getDate() + i);
+
+      const day = currentDate.getDate();
+      const month = currentDate.getMonth();
+      const year = currentDate.getFullYear();
+      const dayName = dayNames[currentDate.getDay()];
+      const shortDayName = shortDayNames[currentDate.getDay()];
+
+      const isPastDate = currentDate < today;
+      const isSelected =
+        selectedDate &&
+        selectedDate.day === day &&
+        selectedDate.month === month &&
+        selectedDate.year === year;
+      const isToday =
+        currentDate.getDate() === today.getDate() &&
+        currentDate.getMonth() === today.getMonth() &&
+        currentDate.getFullYear() === today.getFullYear();
+
+      dates.push({
+        day,
+        month,
+        year,
+        dayName,
+        shortDayName,
+        isPastDate,
+        isSelected,
+        isToday,
+        fullDate: new Date(currentDate),
+        monthName: monthNames[month],
+      });
+    }
+
+    return dates;
+  };
+
+  // Generate traditional calendar grid for desktop
+  const generateCalendarDays = () => {
+    const days = [];
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const isCurrentMonth =
+      currentMonth === today.getMonth() && currentYear === today.getFullYear();
+    const todayDate = today.getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+      days.push(
+        <div key={`empty-${i}`} className="w-8 h-8 sm:w-10 sm:h-10"></div>
+      );
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const isPastDate = isCurrentMonth && day < todayDate;
+      const isSelected =
+        selectedDate &&
+        selectedDate.day === day &&
+        selectedDate.month === currentMonth &&
+        selectedDate.year === currentYear;
+      const isToday = isCurrentMonth && day === todayDate;
+
+      days.push(
+        <button
+          key={day}
+          onClick={() =>
+            !isPastDate &&
+            setSelectedDate({ day, month: currentMonth, year: currentYear })
+          }
+          disabled={isPastDate}
+          className={`w-8 h-8 sm:w-10 sm:h-10 text-xs sm:text-sm rounded-md transition-colors ${
+            isPastDate
+              ? "text-gray-300 cursor-not-allowed"
+              : isSelected
+              ? "bg-blue-600 text-white"
+              : isToday
+              ? "bg-blue-100 text-blue-600 font-semibold hover:bg-blue-200"
+              : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          }`}
+        >
+          {day}
+        </button>
+      );
+    }
+
+    return days;
+  };
+
   const navigateMonth = (direction: "prev" | "next") => {
     if (direction === "next") {
       if (currentMonth === 11) {
@@ -283,48 +370,6 @@ export default function Book() {
       }
     }
     setSelectedDate(null);
-  };
-
-  const generateCalendarDays = () => {
-    const days = [];
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const isCurrentMonth =
-      currentMonth === today.getMonth() && currentYear === today.getFullYear();
-    const todayDate = today.getDate();
-
-    for (let i = 0; i < firstDay; i++) {
-      days.push(
-        <div key={`empty-${i}`} className="w-8 h-8 sm:w-10 sm:h-10"></div>
-      );
-    }
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      const isPastDate = isCurrentMonth && day < todayDate;
-      const isSelected = selectedDate === day;
-      const isToday = isCurrentMonth && day === todayDate;
-
-      days.push(
-        <button
-          key={day}
-          onClick={() => !isPastDate && setSelectedDate(day)}
-          disabled={isPastDate}
-          className={`w-8 h-8 sm:w-10 sm:h-10 text-xs sm:text-sm rounded-md transition-colors ${
-            isPastDate
-              ? "text-gray-300 cursor-not-allowed"
-              : isSelected
-              ? "bg-blue-600 text-white"
-              : isToday
-              ? "bg-blue-100 text-blue-600 font-semibold hover:bg-blue-200"
-              : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-          }`}
-        >
-          {day}
-        </button>
-      );
-    }
-
-    return days;
   };
 
   const canGoBack = () => {
@@ -359,7 +404,9 @@ export default function Book() {
         phone: phone.trim(),
         age: Number.parseInt(age),
         gender,
-        date: `${monthNames[currentMonth]} ${selectedDate}, ${currentYear}`,
+        date: `${monthNames[selectedDate.month]} ${selectedDate.day}, ${
+          selectedDate.year
+        }`,
         time: selectedTime,
       };
 
@@ -410,6 +457,38 @@ export default function Book() {
     setPhoneValid(false);
     setAgeValid(false);
   };
+
+  const handleDateSelect = (dateInfo: any) => {
+    if (dateInfo.isPastDate) return;
+
+    // Haptic feedback on mobile
+    if (isMobile && "vibrate" in navigator) {
+      navigator.vibrate(10);
+    }
+
+    setSelectedDate({
+      day: dateInfo.day,
+      month: dateInfo.month,
+      year: dateInfo.year,
+    });
+  };
+
+  // Scroll to today on mount
+  const scrollRefForToday = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (isMobile && scrollRefForToday.current) {
+      // Small delay to ensure component is rendered
+      setTimeout(() => {
+        const todayElement = scrollRefForToday.current?.querySelector(
+          '[data-today="true"]'
+        );
+        if (todayElement) {
+          // For LTR, "start" is on the left, so scrolling to "start" or "center" is appropriate
+          todayElement.scrollIntoView({ behavior: "smooth", inline: "center" });
+        }
+      }, 100);
+    }
+  }, [isMobile]);
 
   if (showThankYou) {
     return (
@@ -521,8 +600,14 @@ export default function Book() {
       <div className="min-h-screen bg-gray-50 p-2 sm:p-4 lg:p-6">
         <div className="max-w-6xl mx-auto">
           <Card className="bg-white shadow-lg">
-            <CardContent className="p-4 sm:p-6 lg:p-8">
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-center mb-6 sm:mb-8 text-gray-900">
+            <CardContent
+              className={`${isMobile ? "p-3" : "p-4 sm:p-6 lg:p-8"}`}
+            >
+              <h1
+                className={`font-semibold text-center mb-6 sm:mb-8 text-gray-900 ${
+                  isMobile ? "text-lg" : "text-xl sm:text-2xl lg:text-3xl"
+                }`}
+              >
                 Make an Appointment
               </h1>
 
@@ -540,50 +625,170 @@ export default function Book() {
                     Select Date
                   </h3>
 
-                  <div className="flex items-center justify-between mb-4 sm:mb-6">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => navigateMonth("prev")}
-                      disabled={!canGoBack()}
-                      className={`p-2 ${
-                        !canGoBack() ? "opacity-50 cursor-not-allowed" : ""
-                      }`}
-                    >
-                      <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </Button>
-                    <span className="text-sm sm:text-base lg:text-lg font-medium text-gray-900">
-                      {monthNames[currentMonth]} {currentYear}
-                    </span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => navigateMonth("next")}
-                      className="p-2"
-                    >
-                      <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </Button>
-                  </div>
-
-                  <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-6">
-                    {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
-                      <div
-                        key={day}
-                        className="w-8 h-8 sm:w-10 sm:h-10 text-xs sm:text-sm text-gray-500 flex items-center justify-center font-medium"
-                      >
-                        {day}
+                  {/* Mobile Continuous Horizontal Calendar */}
+                  {isMobile ? (
+                    <div className="relative">
+                      {/* Month indicator */}
+                      <div className="flex justify-center mb-4">
+                        <div className="bg-blue-50 px-4 py-2 rounded-full">
+                          <span className="text-sm font-medium text-blue-700">
+                            Swipe right for more dates →
+                          </span>
+                        </div>
                       </div>
-                    ))}
-                    {generateCalendarDays()}
-                  </div>
+
+                      {/* Continuous horizontal scroll */}
+                      <div
+                        ref={scrollRefForToday}
+                        className="overflow-x-auto scrollbar-hide"
+                        style={{
+                          scrollBehavior: "smooth",
+                          WebkitOverflowScrolling: "touch",
+                        }}
+                      >
+                        <div
+                          className="flex gap-3 pb-4 px-2"
+                          style={{ width: "max-content" }}
+                        >
+                          {generateContinuousHorizontalDates().map(
+                            (dateInfo, index) => {
+                              // Show month separator
+                              const showMonthSeparator =
+                                index === 0 ||
+                                dateInfo.month !==
+                                  generateContinuousHorizontalDates()[index - 1]
+                                    ?.month;
+
+                              return (
+                                <div
+                                  key={`${dateInfo.year}-${dateInfo.month}-${dateInfo.day}`}
+                                  className="flex items-center gap-3"
+                                >
+                                  {showMonthSeparator && index > 0 && (
+                                    <div className="flex flex-col items-center justify-center px-2">
+                                      <div className="w-px h-16 bg-gray-200"></div>
+                                      <span className="text-xs text-gray-400 mt-2 writing-mode-vertical transform rotate-90 whitespace-nowrap">
+                                        {dateInfo.monthName}
+                                      </span>
+                                    </div>
+                                  )}
+
+                                  <button
+                                    onClick={() => handleDateSelect(dateInfo)}
+                                    disabled={dateInfo.isPastDate}
+                                    data-today={dateInfo.isToday}
+                                    className={`
+                                    flex-shrink-0 flex flex-col items-center justify-center
+                                    w-16 h-20 rounded-xl border-2 transition-all duration-200
+                                    touch-manipulation select-none relative
+                                    ${
+                                      dateInfo.isPastDate
+                                        ? "text-gray-300 cursor-not-allowed border-gray-200 bg-gray-50"
+                                        : dateInfo.isSelected
+                                        ? "bg-orange-500 text-white border-orange-500 shadow-lg scale-105 transform"
+                                        : dateInfo.isToday
+                                        ? "bg-blue-50 text-blue-600 border-blue-300 font-semibold shadow-md ring-2 ring-blue-200"
+                                        : "text-gray-700 border-gray-200 hover:border-gray-300 hover:bg-gray-50 active:scale-95"
+                                    }
+                                    ${
+                                      !dateInfo.isPastDate
+                                        ? "hover:shadow-md active:shadow-lg"
+                                        : ""
+                                    }
+                                  `}
+                                    style={{
+                                      WebkitTapHighlightColor: "transparent",
+                                      touchAction: "manipulation",
+                                    }}
+                                  >
+                                    <span className="text-xs font-medium mb-1 uppercase tracking-wide">
+                                      {dateInfo.shortDayName}
+                                    </span>
+                                    <span className="text-xl font-bold">
+                                      {dateInfo.day}
+                                    </span>
+                                    {dateInfo.isToday && (
+                                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
+                                        <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
+                                      </div>
+                                    )}
+                                    {showMonthSeparator && index === 0 && (
+                                      <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                                        <span className="text-xs font-medium text-gray-500 bg-white px-2 py-1 rounded-full border">
+                                          {dateInfo.monthName}
+                                        </span>
+                                      </div>
+                                    )}
+                                  </button>
+                                </div>
+                              );
+                            }
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Removed the "Scroll for more dates" text and pulsing dots */}
+                    </div>
+                  ) : (
+                    /* Desktop Grid Calendar */
+                    <div>
+                      <div className="flex items-center justify-between mb-4 sm:mb-6">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => navigateMonth("prev")}
+                          disabled={!canGoBack()}
+                          className={`p-2 ${
+                            !canGoBack() ? "opacity-50 cursor-not-allowed" : ""
+                          }`}
+                        >
+                          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </Button>
+                        <span className="text-sm sm:text-base lg:text-lg font-medium text-gray-900">
+                          {monthNames[currentMonth]} {currentYear}
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => navigateMonth("next")}
+                          className="p-2"
+                        >
+                          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </Button>
+                      </div>
+
+                      <div className="grid grid-cols-7 gap-1 sm:gap-2 mb-6">
+                        {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map(
+                          (day) => (
+                            <div
+                              key={day}
+                              className="w-8 h-8 sm:w-10 sm:h-10 text-xs sm:text-sm text-gray-500 flex items-center justify-center font-medium"
+                            >
+                              {day}
+                            </div>
+                          )
+                        )}
+                        {generateCalendarDays()}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Form and Time Selection Section */}
                 <div className="order-1 lg:order-2">
-                  <div className="space-y-4 sm:space-y-5 mb-6 sm:mb-8">
-                    {/* Name Field */}
+                  {/* Enhanced form fields for mobile */}
+                  <div
+                    className={`space-y-4 sm:space-y-5 mb-6 sm:mb-8 ${
+                      isMobile ? "space-y-5" : ""
+                    }`}
+                  >
+                    {/* Name Field with mobile optimization */}
                     <div>
-                      <label className="text-sm sm:text-base font-medium text-gray-700 mb-2 block">
+                      <label
+                        className={`font-medium text-gray-700 mb-2 block ${
+                          isMobile ? "text-base" : "text-sm sm:text-base"
+                        }`}
+                      >
                         Full Name <span className="text-red-500">*</span>
                       </label>
                       <div className="relative">
@@ -592,7 +797,11 @@ export default function Book() {
                           placeholder="Enter your full name"
                           value={name}
                           onChange={handleNameChange}
-                          className={`w-full h-10 sm:h-11 text-sm sm:text-base pr-10 ${
+                          className={`w-full text-base pr-10 transition-all duration-200 ${
+                            isMobile
+                              ? "h-12 text-base"
+                              : "h-10 sm:h-11 text-sm sm:text-base"
+                          } ${
                             name && nameValid
                               ? "border-green-500 focus:border-green-500 focus:ring-green-500"
                               : name && nameError
@@ -600,19 +809,27 @@ export default function Book() {
                               : ""
                           }`}
                           disabled={isLoading}
+                          style={{
+                            WebkitTapHighlightColor: "transparent",
+                            fontSize: isMobile ? "16px" : undefined, // Prevents zoom on iOS
+                          }}
                         />
                         {name && (
                           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                             {nameValid ? (
-                              <Check className="w-4 h-4 text-green-500" />
+                              <Check className="w-5 h-5 text-green-500" />
                             ) : (
-                              <X className="w-4 h-4 text-red-500" />
+                              <X className="w-5 h-5 text-red-500" />
                             )}
                           </div>
                         )}
                       </div>
                       {nameError && (
-                        <p className="text-red-500 text-xs sm:text-sm mt-1">
+                        <p
+                          className={`text-red-500 mt-1 ${
+                            isMobile ? "text-sm" : "text-xs sm:text-sm"
+                          }`}
+                        >
                           {nameError}
                         </p>
                       )}
@@ -722,31 +939,69 @@ export default function Book() {
                     </div>
                   </div>
 
-                  {/* Time Selection */}
+                  {/* Enhanced Time Selection for Mobile */}
                   <div>
                     <h3 className="text-sm sm:text-base font-medium text-gray-700 mb-4">
                       Select Time
                     </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
-                      {timeSlots.map((time) => (
-                        <Button
-                          key={time}
-                          variant={
-                            selectedTime === time ? "default" : "outline"
-                          }
-                          size="sm"
-                          onClick={() => setSelectedTime(time)}
-                          disabled={isLoading}
-                          className={`h-9 sm:h-10 text-xs sm:text-sm px-2 sm:px-3 ${
-                            selectedTime === time
-                              ? "bg-blue-600 hover:bg-blue-700"
-                              : "hover:bg-gray-50"
-                          }`}
+                    {isMobile ? (
+                      <div
+                        className="overflow-x-auto scrollbar-hide" /* Removed dir="rtl" */
+                      >
+                        <div
+                          className="flex gap-2 pb-4"
+                          style={{ width: "max-content" }}
                         >
-                          {time}
-                        </Button>
-                      ))}
-                    </div>
+                          {timeSlots.map((time) => (
+                            <Button
+                              key={time}
+                              variant={
+                                selectedTime === time ? "default" : "outline"
+                              }
+                              size="sm"
+                              onClick={() => setSelectedTime(time)}
+                              disabled={isLoading}
+                              className={`
+                                flex-shrink-0 h-12 px-4 text-sm font-medium rounded-lg
+                                transition-all duration-200 touch-manipulation select-none
+                                ${
+                                  selectedTime === time
+                                    ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md scale-105 transform"
+                                    : "hover:bg-gray-50 active:scale-95"
+                                }
+                              `}
+                              style={{
+                                WebkitTapHighlightColor: "transparent",
+                                touchAction: "manipulation",
+                              }}
+                            >
+                              {time}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mb-4">
+                        {timeSlots.map((time) => (
+                          <Button
+                            key={time}
+                            variant={
+                              selectedTime === time ? "default" : "outline"
+                            }
+                            size="sm"
+                            onClick={() => setSelectedTime(time)}
+                            disabled={isLoading}
+                            className={`h-9 sm:h-10 text-xs sm:text-sm px-2 sm:px-3 ${
+                              selectedTime === time
+                                ? "bg-blue-600 hover:bg-blue-700"
+                                : "hover:bg-gray-50"
+                            }`}
+                          >
+                            {time}
+                          </Button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
