@@ -47,7 +47,7 @@ export default function Book() {
     useState<AppointmentDetails | null>(null);
   const { isMobile, isLandscape } = useMobileTouch();
   const scrollRef = useRef<HTMLDivElement>(null);
-
+console.log(isLandscape,scrollRef);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -458,6 +458,7 @@ export default function Book() {
     setAgeValid(false);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDateSelect = (dateInfo: any) => {
     if (dateInfo.isPastDate) return;
 
