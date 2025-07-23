@@ -10,7 +10,7 @@ export function ChildSection() {
         <section id="child" className="flex flex-col lg:flex-row-reverse w-full h-full lg:h-screen bg-gray-900 pb-10 lg:pb-0">
             <div className="w-full lg:w-1/2 flex justify-center items-center h-full lg:h-screen">
                 <div className="bg-red-500 rounded-lg">
-                    <Image src={"/d01.jpg"} alt="hi" width={"700"} height={10} className="rounded-lg" />
+                    <Image src={"/d01.jpg"} alt="Child Therapies" width={"700"} height={10} className="rounded-lg" />
                 </div>
             </div>
             <div className="flex flex-col justify-center lg:w-1/2 pl-5 pr-8">

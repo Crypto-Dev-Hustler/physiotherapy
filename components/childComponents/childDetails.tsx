@@ -8,7 +8,7 @@ export function ChildDetailSection() {
         <section id="childdetails" className="lg:h-screen flex w-screen">
             <div className="lg:w-1/2 flex items-center pl-0 lg:pl-10">
                 <div className="gap-4 flex flex-col justify-center lg:pl-10 lg:pr-10 pl-5 pr-5">
-                    <h1 className="text-4xl lg:text-4xl pt-10 lg:pt-0 font-bold mb-8 text-gray-900">Child Center</h1>
+                    <h2 className="text-4xl lg:text-4xl pt-10 lg:pt-0 font-bold mb-8 text-gray-900">Child Center</h2>
                     <div className="flex">
                         <Award className="text-blue-600"/>
                         <span className="text-gray-900 pl-6">1500+ satisfied patients</span>
