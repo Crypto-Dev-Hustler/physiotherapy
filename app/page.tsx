@@ -1,6 +1,6 @@
 "use client";
 
-import { Navbar } from "@/components/navbar";
+import Navbar from "@/components/navbar";
 import { HeroSection } from "@/components/hero";
 import { Details } from "@/components/details";
 import { ChildSection } from "@/components/child";
