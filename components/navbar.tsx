@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import NavigationMenu from "@/components/navigation-menu"; // Adjusted import path
+import NavigationMenu from "@/components/navigation-menu";
+import { motion } from "framer-motion"; // Import motion
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,18 +15,25 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
+  const navbarAppearDelay = 4; // Adjust this value as needed
+
   return (
     <>
       {/* FIXED header */}
-      <header className="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur-lg rounded-3xl overflow-hidden mx-4 mt-4">
+      <motion.header
+        initial={{ opacity: 0, y: -100 }} // Start hidden above the screen
+        animate={{ opacity: 1, y: 0 }} // Animate to visible position
+        transition={{ duration: 0.3, delay: navbarAppearDelay }} // Delay appearance
+        className="fixed inset-x-0 top-0 z-50 bg-white/5 backdrop-blur-sm rounded-3xl overflow-hidden mx-4 mt-4" // Added mt-4
+      >
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <Image
               src="/logo.png"
               alt="PhysioHealth rehabilitation center"
-              width={500}
-              height={500}
+              width={300}
+              height={300}
               style={{ width: "20%", height: "auto" }}
               priority
             />
@@ -38,14 +46,12 @@ export default function Navbar() {
             aria-label="Open navigation menu"
             aria-expanded={isOpen}
           >
-            <span className="w-6 h-0.5 bg-[#81b342] mb-1.5 transition-all duration-300" />
-            <span className="w-6 h-0.5 bg-[#81b342] mb-1.5 transition-all duration-300" />
-            <span className="w-6 h-0.5 bg-[#81b342] transition-all duration-300" />
+            <span className="w-6 h-0.5 bg-[#000000] mb-1.5 transition-all duration-300" />
+            <span className="w-6 h-0.5 bg-[#000000] mb-1.5 transition-all duration-300" />
+            <span className="w-6 h-0.5 bg-[#000000] mb-1.5 transition-all duration-300" />
           </button>
         </div>
-      </header>
-      {/* Spacer so page content isn't hidden behind the fixed header */}
-      <div className="h-[80px]" />
+      </motion.header>
       {/* Full-screen overlay */}
       <NavigationMenu isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -7,9 +8,9 @@ import { Check } from "lucide-react";
 export function AdultDetailSection() {
   return (
     <section id="adult" className="w-full bg-white">
-      <div className="flex flex-col lg:flex-row min-h-screen">
+      <div className="flex flex-col lg:flex-row min-h-[calc(var(--vh)*100)]">
         {/* Image Section */}
-        <div className="w-full lg:w-1/2 flex justify-center items-center p-4 sm:p-6 lg:p-8">
+        <div className="w-full lg:w-1/2 flex justify-center items-center p-4 sm:p-6 lg:p-8 lg:h-dvh">
           <div className="relative w-full max-w-lg lg:max-w-none aspect-[4/3] lg:aspect-[3/4] rounded-lg overflow-hidden shadow-lg">
             <Image
               src="/d04.jpg"
@@ -39,41 +40,20 @@ export function AdultDetailSection() {
 
             {/* Features List */}
             <div className="space-y-4 sm:space-y-5 lg:space-y-6 mb-8 sm:mb-10 lg:mb-12">
-              <div className="flex items-start gap-3 sm:gap-4">
-                <Check className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                <span className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
-                  Personalized treatment plans tailored to your specific needs
-                </span>
-              </div>
-
-              <div className="flex items-start gap-3 sm:gap-4">
-                <Check className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                <span className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
-                  Advanced techniques for pain management and mobility
-                  improvement
-                </span>
-              </div>
-
-              <div className="flex items-start gap-3 sm:gap-4">
-                <Check className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                <span className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
-                  Rehabilitation for injuries, surgeries, and chronic conditions
-                </span>
-              </div>
-
-              <div className="flex items-start gap-3 sm:gap-4">
-                <Check className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                <span className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
-                  Specialized programs for seniors and athletes
-                </span>
-              </div>
-
-              <div className="flex items-start gap-3 sm:gap-4">
-                <Check className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                <span className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
-                  Evidence-based approaches for optimal recovery outcomes
-                </span>
-              </div>
+              {[
+                "Personalized treatment plans tailored to your specific needs",
+                "Advanced techniques for pain management and mobility improvement",
+                "Rehabilitation for injuries, surgeries, and chronic conditions",
+                "Specialized programs for seniors and athletes",
+                "Evidence-based approaches for optimal recovery outcomes",
+              ].map((feature, i) => (
+                <div key={i} className="flex items-start gap-3 sm:gap-4">
+                  <Check className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 mt-0.5 flex-shrink-0" />
+                  <span className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
+                    {feature}
+                  </span>
+                </div>
+              ))}
             </div>
 
             {/* Call to Action Button */}

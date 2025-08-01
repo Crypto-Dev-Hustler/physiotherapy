@@ -122,3 +122,13 @@
     @apply bg-background text-foreground;
   }
 }
+:root {
+  --vh: 100%;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --vh: 100%;
+  }
+}
+

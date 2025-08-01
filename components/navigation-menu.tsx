@@ -79,7 +79,7 @@ export default function NavigationMenu({
     >
       {/* Actual menu content, positioned and styled */}
       <div
-        className={`absolute top-0 right-0 left-25 bottom-30 bg-white/80 rounded-3xl shadow-xl backdrop-blur-lg
+        className={`absolute top-0 right-0 left-25 bottom-30 bg-white/70 rounded-3xl shadow-xl backdrop-blur-sm
         transition-all duration-500 ease-in-out transform
         ${isOpen ? "translate-x-0 scale-100" : "translate-x-full scale-95"}`}
         onClick={(e) => e.stopPropagation()} // Prevent clicks on menu content from closing the menu

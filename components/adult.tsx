@@ -1,82 +1,212 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { Check } from "lucide-react";
+import { Check, Droplets, Dumbbell, Zap, Waves } from "lucide-react";
+import ScrollFloat from "./scrollFloat";
+import { Button } from "./ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import HorizontalScrollCarousel, { CardType } from "./scroll-photo";
 
 export function AdultSection() {
+  const therapies = [
+    {
+      icon: <Dumbbell className="h-8 w-8 text-blue-600" />,
+      title: "Pain Management",
+      description:
+        "Customized exercise programs to improve strength, mobility, and function.",
+    },
+    {
+      icon: <Zap className="h-8 w-8 text-blue-600" />,
+      title: "Manual Therapy",
+      description:
+        "Hands-on techniques to relieve pain, restore motion, and improve circulation.",
+    },
+    {
+      icon: <Waves className="h-8 w-8 text-blue-600" />,
+      title: "Exercise Therapy",
+      description:
+        "Targeted routines to restore flexibility and build muscle endurance.",
+    },
+    {
+      icon: <Droplets className="h-8 w-8 text-blue-600" />,
+      title: "Neurological Rehab",
+      description:
+        "Focused support for stroke, Parkinson’s, and spinal cord injury recovery.",
+    },
+    {
+      icon: <Droplets className="h-8 w-8 text-blue-600" />,
+      title: "Post-Surgical Rehab",
+      description:
+        "Rebuild strength and restore movement after orthopedic or other surgeries.",
+    },
+    {
+      icon: <Droplets className="h-8 w-8 text-blue-600" />,
+      title: "Other Treatments",
+      description:
+        "Tailored interventions for arthritis, balance issues, and chronic pain.",
+    },
+  ];
+
+  const cardData: CardType[] = [
+    {
+      id: 1,
+      title: "",
+      url: "/scroll1.jpg",
+      description: "HelloWorld",
+    },
+    {
+      id: 2,
+      title: "",
+      url: "/d02.jpg",
+      description: "",
+    },
+
+    {
+      id: 3,
+      title: "",
+      url: "/scroll2.jpg",
+      description: "",
+    },
+    {
+      id: 4,
+      title: "",
+      url: "/scroll3.jpg",
+      description: "",
+    },
+    {
+      id: 5,
+      title: "",
+      url: "/scroll4.jpg",
+      description: "",
+    },
+    {
+      id: 6,
+      title: "",
+      url: "/scroll5.jpg",
+      description: "",
+    },
+    {
+      id: 7,
+      title: "",
+      url: "/scroll6.jpg",
+      description: "",
+    },
+    {
+      id: 7,
+      title: "",
+      url: "/scroll6.jpg",
+      description: "",
+    },
+  ];
+
   return (
-    <section
-      id="adult"
-      className="flex flex-col lg:flex-row w-full min-h-screen bg-white pb-10 lg:pb-0"
-    >
-      {/* Image Section */}
-      <div className="w-full lg:w-1/2 flex justify-center items-center h-64 sm:h-80 md:h-96 lg:h-screen p-4 sm:p-6 lg:p-8">
-        <div className="bg-red-500 rounded-lg relative w-full max-w-md sm:max-w-lg lg:max-w-xl aspect-[4/3]">
-          <Image
-            src="/d04.jpg"
-            alt="Adult physiotherapy treatment"
-            fill
-            className="rounded-lg object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 40vw"
-          />
-        </div>
-      </div>
+    <>
+      {/* Intro content */}
+      <section
+        id="adult"
+        className="relative flex flex-col lg:flex-row w-full min-h-[calc(var(--vh)*100)] bg-white pb-10 "
+      >
+        <Image
+          alt="Abstract background pattern"
+          src="/download (8).jpeg"
+          // src="/main3.jpeg"
+          fill
+          priority
+          style={{ objectFit: "cover", objectPosition: "center" }}
+          className="absolute inset-0 z-0"
+        />
+        {/* Blur Overlay */}
+        <div className="absolute inset-0 z-10 backdrop-blur-sm bg-white/10" />
 
-      {/* Content Section */}
-      <div className="flex flex-col justify-center lg:w-1/2 px-4 sm:px-6 lg:pl-5 lg:pr-8">
-        <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 pb-3 sm:pb-4 pt-3 sm:pt-4">
-          Adult Therapies
-        </div>
+        <section className="relative my-1 ">
+          <div className="relative z-50 max-w-4xl bg-white/10 mx-auto text-center backdrop-blur-sm">
+            <ScrollFloat
+              animationDuration={2}
+              ease="back.inOut(5)"
+              scrollStart="center bottom+=50%"
+              scrollEnd="bottom bottom-=40%"
+              stagger={0.05}
+            >
+              Adult Therapies
+            </ScrollFloat>
 
-        <div className="pb-6 sm:pb-8 text-sm sm:text-base lg:text-lg leading-relaxed">
-          Our adult physiotherapy services focus on rehabilitation, pain
-          management, and improving mobility for various conditions. Our
-          experienced therapists develop personalized treatment plans to help
-          you recover and regain your quality of life.
-        </div>
+            <p className="">
+              Our adult physiotherapy services focus on rehabilitation, pain
+              management, and improving mobility for various conditions. Our
+              experienced therapists develop personalized treatment plans to
+              help you recover and regain your quality of life.
+            </p>
+          </div>
+        </section>
 
-        <div className="flex flex-col gap-4 sm:gap-5 lg:gap-6 mb-6 sm:mb-8">
-          <div className="flex flex-row items-center gap-3">
-            <Check className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 flex-shrink-0" />
-            <div className="text-sm sm:text-base lg:text-lg">
-              Personalized treatment plans tailored to your specific needs
+        {/* Horizontal Carousel */}
+
+        {/* Rest of therapy content */}
+        <section className="bg-white/10 py-[-10] px-4 text-center z-15 backdrop-blur-sm">
+          <HorizontalScrollCarousel cards={cardData} />
+          <h2 className="text-3xl z-5 font-bold mb-6">
+            Explore More Therapies
+          </h2>
+          <p className="mb-10 max-w-2xl mx-auto text-gray-600">
+            We offer a wide range of evidence-based physiotherapy treatments...
+          </p>
+
+          {/* Your therapy cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="space-y-3 mb-8">
+              {[
+                "Personalized treatment plans tailored to your specific needs",
+                "Advanced techniques for pain management and mobility improvement",
+                "Rehabilitation for injuries, surgeries, and chronic conditions",
+                "Specialized programs for seniors and athletes",
+                "Evidence-based approaches for optimal recovery outcomes",
+              ].map((point, i) => (
+                <div key={i} className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-600 flex-shrink-0 mt-1" />
+                  <span>{point}</span>
+                </div>
+              ))}
+            </div>
+            {/* Therapy Cards */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Our Therapies
+              </h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                We offer a wide range of evidence-based physiotherapy treatments
+                to address various conditions and help you achieve your health
+                goals.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {therapies.map((therapy, index) => (
+                <Card
+                  key={index}
+                  className="border-t-4 border-t-gray-900 hover:shadow-lg transition-shadow"
+                >
+                  <CardHeader>
+                    <div className="mb-2">{therapy.icon}</div>
+                    <CardTitle>{therapy.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600">{therapy.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* CTA Button */}
+            <div className="text-center">
+              <Button
+                className="my-6 bg-white/50 hover:bg-white/70 text-[#81b342] border border-[#81b342]/50 backdrop-blur-sm
+           px-8 py-3 rounded-full text-lg font-medium transition-all duration-700 hover:scale-105"
+              >
+                Know more
+              </Button>
             </div>
           </div>
-
-          <div className="flex flex-row items-center gap-3">
-            <Check className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 flex-shrink-0" />
-            <div className="text-sm sm:text-base lg:text-lg">
-              Advanced techniques for pain management and mobility improvement
-            </div>
-          </div>
-
-          <div className="flex flex-row items-center gap-3">
-            <Check className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 flex-shrink-0" />
-            <div className="text-sm sm:text-base lg:text-lg">
-              Rehabilitation for injuries, surgeries, and chronic conditions
-            </div>
-          </div>
-
-          <div className="flex flex-row items-center gap-3">
-            <Check className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 flex-shrink-0" />
-            <div className="text-sm sm:text-base lg:text-lg">
-              Specialized programs for seniors and athletes
-            </div>
-          </div>
-
-          <div className="flex flex-row items-center gap-3">
-            <Check className="h-4 w-4 sm:h-5 sm:w-5 text-blue-500 flex-shrink-0" />
-            <div className="text-sm sm:text-base lg:text-lg">
-              Evidence-based approaches for optimal recovery outcomes
-            </div>
-          </div>
-        </div>
-
-        <button className="w-32 sm:w-36 lg:w-40 h-10 sm:h-12 rounded-lg text-white bg-gray-900 mt-2 text-sm sm:text-base hover:bg-gray-800 transition-colors">
-          <Link href="/adultCenter">know more</Link>
-        </button>
-      </div>
-    </section>
+        </section>
+      </section>
+    </>
   );
 }
