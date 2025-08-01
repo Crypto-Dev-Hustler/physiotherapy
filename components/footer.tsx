@@ -100,10 +100,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#details"
+                  href="#About"
                   className="hover:text-white transition-colors"
                 >
-                  Details
+                  About
                 </Link>
               </li>
               <li>
@@ -127,7 +127,7 @@ export function Footer() {
                   href="#booking"
                   className="hover:text-white transition-colors"
                 >
-                  Book Appointment
+                  Take Appointment
                 </Link>
               </li>
               <li>

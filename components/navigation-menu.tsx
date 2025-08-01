@@ -25,9 +25,9 @@ export default function NavigationMenu({
   // EDIT your section targets here (ids must exist in the page)
   const navigationItems: NavItem[] = [
     { label: "Home.", href: "#home" },
-    { label: "Details.", href: "#details" }, // NOTE: if your section id is "appointment", update both places
-    { label: "Childern.", href: "#child" },
     { label: " Adults.", href: "#adult" },
+    { label: "Childern.", href: "#child" },
+    { label: "About.", href: "#adultdoctors" }, // NOTE: if your section id is "appointment", update both places
   ];
 
   const socialIcons = [

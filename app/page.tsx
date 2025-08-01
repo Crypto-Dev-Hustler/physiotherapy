@@ -7,6 +7,7 @@ import { ChildSection } from "@/components/child";
 import { AdultSection } from "@/components/adult";
 import Book from "@/components/appoinment";
 import { Footer } from "@/components/footer";
+import AdultDoctorsSection from "@/components/about";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <HeroSection />
       <AdultSection />
       <ChildSection />
+      <AdultDoctorsSection/>
       <Book />
       <Footer />
     </div>

@@ -1,4 +1,5 @@
 "use client";
+import { cubicBezier } from "framer-motion";
 
 import type React from "react";
 import Image from "next/image";
@@ -9,6 +10,7 @@ import StatCard from "./info-card";
 const AnimatedText = ({
   text,
   className,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   as: Component = "div",
   delayOffset = 0, // New prop for additional delay
 }: {
@@ -36,7 +38,7 @@ const AnimatedText = ({
       y: 0,
       opacity: 1,
       transition: {
-        ease: "backOut",
+        ease: cubicBezier(0.68, -0.55, 0.27, 1.55),
         duration: 0.6,
       },
     },
@@ -48,7 +50,7 @@ const AnimatedText = ({
       variants={container}
       initial="hidden"
       animate="visible"
-      as={Component}
+      // as={Component}
     >
       {characters.map((char, index) => (
         <motion.span
@@ -67,7 +69,7 @@ const AnimatedText = ({
   );
 };
 
-export default function Component() {
+export default function Home() {
   const logoAnimationDuration = 0.8;
   const logoAnimationDelay = 0.5;
 
@@ -78,7 +80,10 @@ export default function Component() {
   const textStartDelay = welcomeAnimationDelay + welcomeAnimationDuration + 0.2; // Main text starts after welcome
 
   return (
-    <div className="relative flex min-h-screen w-screen items-center justify-center overflow-hidden">
+    <div
+      id="home"
+      className="relative flex min-h-screen w-screen items-center justify-center overflow-hidden"
+    >
       {/* Background Image */}
       <Image
         alt="Abstract background pattern"

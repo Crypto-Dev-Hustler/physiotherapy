@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface StatCardProps {
@@ -17,7 +17,7 @@ const StatCard = ({ value, label, delay = 0 }: StatCardProps) => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
+        ease: easeOut, // ✅ fixed here
         delay,
       },
     },
@@ -27,7 +27,7 @@ const StatCard = ({ value, label, delay = 0 }: StatCardProps) => {
     <motion.div
       className={cn(
         "flex flex-col items-center justify-center p-6 rounded-xl shadow-lg",
-        "bg-gradient-to-br from-white/70 to-blue-100/50  bg- backdrop-blur-xl",
+        "bg-gradient-to-br from-white/70 to-blue-100/50 backdrop-blur-xl",
         "min-w-[150px] text-center"
       )}
       variants={cardVariants}

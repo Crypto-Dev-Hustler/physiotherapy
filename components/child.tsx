@@ -45,7 +45,7 @@ export function ChildSection() {
   ];
   return (
     <section
-      id="adult"
+      id="child"
       className="relative flex flex-col lg:flex-row w-full min-h-[calc(var(--vh)*100)] bg-white pb-10 lg:pb-0 overflow-hidden"
     >
       {/* Background Image */}
