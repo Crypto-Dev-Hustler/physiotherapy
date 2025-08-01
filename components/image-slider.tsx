@@ -31,12 +31,6 @@ const images: ImageItem[] = [
     width: 600,
     height: 300,
   },
-  {
-    src: "/d01.jpg?height=300&width=600",
-    alt: "Mountain range at sunset",
-    width: 600,
-    height: 300,
-  },
 ];
 
 interface ImageSliderProps {

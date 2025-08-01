@@ -50,53 +50,31 @@ export function AdultSection() {
   const cardData: CardType[] = [
     {
       id: 1,
-      title: "",
+      title: "No Image",
       url: "/scroll1.jpg",
       description: "HelloWorld",
     },
     {
       id: 2,
-      title: "",
+      title: "No Image",
       url: "/d02.jpg",
       description: "",
     },
 
     {
       id: 3,
-      title: "",
+      title: "No Image",
       url: "/scroll2.jpg",
       description: "",
     },
     {
       id: 4,
-      title: "",
+      title: "No Image",
       url: "/scroll3.jpg",
       description: "",
     },
-    {
-      id: 5,
-      title: "",
-      url: "/scroll4.jpg",
-      description: "",
-    },
-    {
-      id: 6,
-      title: "",
-      url: "/scroll5.jpg",
-      description: "",
-    },
-    {
-      id: 7,
-      title: "",
-      url: "/scroll6.jpg",
-      description: "",
-    },
-    {
-      id: 7,
-      title: "",
-      url: "/scroll6.jpg",
-      description: "",
-    },
+
+  
   ];
 
   return (

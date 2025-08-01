@@ -375,9 +375,9 @@ export default function Book() {
         <div className="max-w-6xl mx-auto">
           <Card className="bg-white shadow-lg">
             <CardContent className={isMobile ? "p-3" : "p-6"}>
-              <h1 className="text-center text-xl font-semibold mb-6">
+              <h2 className="text-center text-xl font-semibold mb-6">
                 Make an Appointment
-              </h1>
+              </h2>
 
               {error && (
                 <div className="p-4 mb-4 bg-red-50 border border-red-200 rounded-lg flex items-center gap-3">
