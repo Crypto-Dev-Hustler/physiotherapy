@@ -2,6 +2,7 @@
 // import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/navbar";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 // export const metadata: Metadata = {
 //   title: "Physiotherapy Center|best Physiotherapist in Gurgaon ",
@@ -21,6 +22,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const isAdminPage = pathname.startsWith("/adminBoard");
+
   useEffect(() => {
     if ("scrollRestoration" in history) {
       history.scrollRestoration = "manual";
@@ -41,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        <Navbar />
+        {!isAdminPage && <Navbar />}
         {children}
       </body>
     </html>
