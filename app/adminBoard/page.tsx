@@ -14,6 +14,8 @@ import {
   X,
   Menu,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
+import Head from "next/head";
 
 interface Appointment {
   id: number;
@@ -27,6 +29,8 @@ interface Appointment {
 }
 
 export default function DashboardPage() {
+  const pathname = usePathname().replace(/\/$/, "") || "/";
+  const canonicalUrl = `https://www.painfreerehabcenter.in/${pathname}`;
   const [activeTab, setActiveTab] = useState<"appointments">("appointments");
   const [searchTerm, setSearchTerm] = useState("");
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -176,6 +180,9 @@ export default function DashboardPage() {
 
   return (
     <div className="flex h-screen bg-gray-50">
+      <Head>
+        <link rel="canonical" href={canonicalUrl} />
+      </Head>
       {/* Desktop Sidebar */}
       <div className="hidden lg:block w-64 bg-white shadow-sm border-r">
         <SidebarContent />

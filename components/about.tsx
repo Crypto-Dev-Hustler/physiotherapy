@@ -1,6 +1,8 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Head from "next/head";
+import { usePathname } from "next/navigation";
 
 interface Doctor {
   role: string;
@@ -14,13 +16,17 @@ export default function AdultDoctorsSection() {
     { role: "Therapist", name: "Dr. Kajal" },
     { role: "Therapist", name: "Dr. Nirdisha Nirmal" },
   ];
-
+  const pathname = usePathname().replace(/\/$/, "") || "/"; // Dynamically get current path
+  const canonicalUrl = `https://www.painfreerehabcenter.in/${pathname}`;
   return (
     <section
       id="adultdoctors"
       className="relative w-full px-4 py-12 bg-white text-gray-800"
       aria-labelledby="adult-doctors-heading"
     >
+      <Head>
+        <link rel="canonical" href={canonicalUrl} />
+      </Head>
       <div className="text-center mb-12">
         <h2
           id="adult-doctors-heading"

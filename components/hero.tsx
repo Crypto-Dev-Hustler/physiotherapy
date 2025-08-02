@@ -4,6 +4,8 @@ import { useMemo } from "react";
 import { cubicBezier, motion } from "framer-motion";
 import Image from "next/image";
 import StatCard from "./info-card";
+import { usePathname } from "next/navigation";
+import Head from "next/head";
 
 // Animation Variants (moved outside for optimization)
 const containerVariants = {
@@ -65,10 +67,13 @@ const AnimatedText = ({
 };
 
 export default function Home() {
+  const pathname = usePathname().replace(/\/$/, "") || "/";
+  const canonicalUrl = `https://www.painfreerehabcenter.in/${pathname}`;
   const logoAnimationDuration = 0.8;
   const logoAnimationDelay = 0.5;
   const welcomeAnimationDuration = 0.8;
-  const welcomeAnimationDelay = logoAnimationDelay + logoAnimationDuration + 0.2;
+  const welcomeAnimationDelay =
+    logoAnimationDelay + logoAnimationDuration + 0.2;
   const textStartDelay = welcomeAnimationDelay + welcomeAnimationDuration + 0.2;
 
   return (
@@ -76,6 +81,9 @@ export default function Home() {
       id="home"
       className="relative flex min-h-screen w-screen items-center justify-center overflow-hidden"
     >
+      <Head>
+        <link rel="canonical" href={canonicalUrl} />
+      </Head>
       {/* Background Image */}
       <Image
         alt="Abstract background pattern"

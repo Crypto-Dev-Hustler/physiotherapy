@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ImageSlider from "./image-slider";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import Head from "next/head";
+import { usePathname } from "next/navigation";
 
 const therapies = [
   {
@@ -49,11 +51,16 @@ const features = [
 ];
 
 export function ChildSection() {
+  const pathname = usePathname().replace(/\/$/, "") || "/";
+  const canonicalUrl = `https://www.painfreerehabcenter.in/${pathname}`;
   return (
     <section
       id="child"
       className="relative flex flex-col lg:flex-row w-full min-h-[calc(var(--vh)*100)] bg-white pb-10 lg:pb-0 overflow-hidden"
     >
+      <Head>
+        <link rel="canonical" href={canonicalUrl} />
+      </Head>
       {/* Background Image */}
       <Image
         alt="Abstract background pattern"
@@ -67,15 +74,7 @@ export function ChildSection() {
       {/* Blur Overlay */}
       <div className="absolute inset-0 z-10 backdrop-blur-xl bg-white/30" />
 
-      {/* Main Content */}
       <div className="relative z-20 w-full text-center py-10 lg:py-16">
-        {/* <ScrollFloat
-          animationDuration={2}
-          ease="back.inOut(5)"
-          scrollStart="center bottom+=50%"
-          scrollEnd="bottom bottom-=40%"
-          stagger={0.05}
-        > */}
         <div className="text-[50px] font-bold">Child Therapies</div>
         {/* </ScrollFloat> */}
 
@@ -126,7 +125,7 @@ export function ChildSection() {
               className="my-6 bg-white/50 hover:bg-white/70 text-[#81b342] border border-[#81b342]/50 backdrop-blur-sm
                   px-8 py-3 rounded-full text-lg font-medium transition-all duration-700 hover:scale-105"
             >
-              <Link href={"/childCenter"}>Know about</Link>
+              <Link href={"/childCenter"}>Know More</Link>
             </Button>
           </div>
         </div>

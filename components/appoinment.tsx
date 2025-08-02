@@ -29,8 +29,12 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { useMobileTouch } from "./hooks/use-mobile-touch";
 import "./styles/mobile-calendar.css";
+import Head from "next/head";
+import { usePathname } from "next/navigation";
 
 export default function Book() {
+  const pathname = usePathname().replace(/\/$/, "") || "/";
+  const canonicalUrl = `https://www.painfreerehabcenter.in/${pathname}`;
   const [today, setToday] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
@@ -371,6 +375,9 @@ export default function Book() {
 
   return (
     <section id="booking">
+      <Head>
+        <link rel="canonical" href={canonicalUrl} />
+      </Head>
       <div className="min-h-[calc(var(--vh)*100)] bg-gray-50 p-2 sm:p-4 lg:p-6">
         <div className="max-w-6xl mx-auto">
           <Card className="bg-white shadow-lg">
