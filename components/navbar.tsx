@@ -15,7 +15,7 @@ export default function Navbar() {
     };
   }, [isOpen]);
 
-  const navbarAppearDelay = 4; // Adjust this value as needed
+  const navbarAppearDelay = 2; // Adjust this value as needed
 
   return (
     <>
@@ -23,7 +23,7 @@ export default function Navbar() {
       <motion.header
         initial={{ opacity: 0, y: -100 }} // Start hidden above the screen
         animate={{ opacity: 1, y: 0 }} // Animate to visible position
-        transition={{ duration: 0.3, delay: navbarAppearDelay }} // Delay appearance
+        transition={{ duration: 0.2, delay: navbarAppearDelay }} // Delay appearance
         className="fixed inset-x-0 top-0 z-50 bg-white/5 backdrop-blur-sm rounded-3xl overflow-hidden mx-4 mt-4" // Added mt-4
       >
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">

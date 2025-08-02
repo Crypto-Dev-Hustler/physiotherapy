@@ -2,47 +2,49 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+interface Doctor {
+  role: string;
+  name: string;
+}
+
 export default function AdultDoctorsSection() {
-  const therapies = [
-    {
-      role: "Therapist",
-      name: "Dr. Priyanka Kashyap",
-    },
-    {
-      role: "Speech Therapist",
-      name: "Dr. Sheela",
-    },
-    {
-      role: "Therapist",
-      name: "Dr. Kajal",
-    },
-    {
-      role: "Therapist",
-      name: "Dr. Nirdisha Nirmal",
-    },
+  const doctors: Doctor[] = [
+    { role: "Therapist", name: "Dr. Priyanka Kashyap" },
+    { role: "Speech Therapist", name: "Dr. Sheela" },
+    { role: "Therapist", name: "Dr. Kajal" },
+    { role: "Therapist", name: "Dr. Nirdisha Nirmal" },
   ];
 
   return (
-    <section id="adultdoctors" className="container mx-auto px-4 py-8">
+    <section
+      id="adultdoctors"
+      className="relative w-full px-4 py-12 bg-white text-gray-800"
+      aria-labelledby="adult-doctors-heading"
+    >
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Doctors</h2>
+        <h2
+          id="adult-doctors-heading"
+          className="text-3xl md:text-4xl font-bold mb-4"
+        >
+          Our Doctors
+        </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
           We offer a wide range of doctors and experts to address various
-          conditions and help you to achieve your health goals.
+          conditions and help you achieve your health goals.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {therapies.map((therapy, index) => (
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {doctors.map(({ name, role }, index) => (
           <Card
             key={index}
-            className="border-t-4 border-t-gray-900 hover:shadow-lg transition-shadow"
+            className="border-t-4 border-t-blue-600 hover:shadow-md transition-shadow duration-300"
           >
             <CardHeader>
-              <CardTitle className="text-xl">{therapy.name}</CardTitle>
+              <CardTitle className="text-xl font-semibold">{name}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-blue-600">{therapy.role}</p>
+              <p className="text-blue-600 font-medium">{role}</p>
             </CardContent>
           </Card>
         ))}

@@ -1,83 +1,75 @@
 "use client";
-import { cubicBezier } from "framer-motion";
 
-import type React from "react";
+import { useMemo } from "react";
+import { cubicBezier, motion } from "framer-motion";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 import StatCard from "./info-card";
+
+// Animation Variants (moved outside for optimization)
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.1 * i,
+    },
+  }),
+};
+
+const itemVariants = {
+  hidden: { y: 50, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      ease: cubicBezier(0.68, -0.55, 0.27, 1.55),
+      duration: 0.6,
+    },
+  },
+};
 
 const AnimatedText = ({
   text,
   className,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   as: Component = "div",
-  delayOffset = 0, // New prop for additional delay
+  delayOffset = 0,
 }: {
   text: string;
   className?: string;
   as?: React.ElementType;
   delayOffset?: number;
 }) => {
-  const characters = Array.from(text); // Convert string to array of characters
-
-  const container = {
-    hidden: { opacity: 0 },
-    visible: (i = 1) => ({
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.06,
-        delayChildren: delayOffset + 0.1 * i,
-      }, // Add delayOffset here
-    }),
-  };
-
-  const item = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        ease: cubicBezier(0.68, -0.55, 0.27, 1.55),
-        duration: 0.6,
-      },
-    },
-  };
+  const characters = useMemo(() => Array.from(text), [text]);
+  const MotionComponent = motion(Component);
 
   return (
-    <motion.div
+    <MotionComponent
       className={className}
-      variants={container}
+      variants={containerVariants}
       initial="hidden"
       animate="visible"
-      // as={Component}
+      custom={delayOffset}
     >
       {characters.map((char, index) => (
         <motion.span
-          key={char + "-" + index}
-          variants={item}
-          className={cn(
-            "inline-block",
-            char === "&" ? "text-xl px-1" : "" // Removed align-middle, increased size for better visibility
-          )}
+          key={`${char}-${index}`}
+          variants={itemVariants}
+          className={`inline-block ${char === "&" ? "text-xl px-1" : ""}`}
         >
-          {char === " " ? "\u00A0" : char}{" "}
-          {/* Use non-breaking space for actual spaces */}
+          {char === " " ? "\u00A0" : char}
         </motion.span>
       ))}
-    </motion.div>
+    </MotionComponent>
   );
 };
 
 export default function Home() {
   const logoAnimationDuration = 0.8;
   const logoAnimationDelay = 0.5;
-
   const welcomeAnimationDuration = 0.8;
-  const welcomeAnimationDelay =
-    logoAnimationDelay + logoAnimationDuration + 0.2; // Welcome starts after logo
-
-  const textStartDelay = welcomeAnimationDelay + welcomeAnimationDuration + 0.2; // Main text starts after welcome
+  const welcomeAnimationDelay = logoAnimationDelay + logoAnimationDuration + 0.2;
+  const textStartDelay = welcomeAnimationDelay + welcomeAnimationDuration + 0.2;
 
   return (
     <div
@@ -90,13 +82,17 @@ export default function Home() {
         src="/na.jpeg"
         fill
         priority
+        placeholder="empty"
         style={{ objectFit: "cover", objectPosition: "center" }}
         className="absolute inset-0 z-0"
       />
 
+      {/* Overlay Blur */}
       <div className="absolute inset-0 z-[1] bg-white/20 backdrop-blur-xl" />
 
+      {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center pt-[80px]">
+        {/* Logo */}
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -108,12 +104,15 @@ export default function Home() {
         >
           <Image
             src="/logo.png"
-            alt="Abstract glowing logo"
+            alt="Logo"
             width={200}
             height={200}
+            priority
             className="drop-shadow-lg"
           />
         </motion.div>
+
+        {/* Welcome Text */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -125,6 +124,8 @@ export default function Home() {
         >
           Welcome To
         </motion.div>
+
+        {/* Animated Titles */}
         <h1 className="text-center max-w-5xl leading-tight">
           <AnimatedText
             text="Painfree Rehab"
@@ -146,7 +147,7 @@ export default function Home() {
           />
         </h1>
 
-        {/* New section for stat cards */}
+        {/* Stat Cards */}
         <motion.div
           className="mt-16 flex flex-wrap justify-center gap-6 px-4"
           initial="hidden"

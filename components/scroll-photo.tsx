@@ -24,7 +24,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
     offset: ["start start", "end start"],
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
+  const x = useTransform(scrollYProgress, [0, 0.7], ["1%", "-95%"]);
 
   return (
     <section ref={targetRef} className="relative h-[500vh] bg-white/10">
