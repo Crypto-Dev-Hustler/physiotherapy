@@ -5,7 +5,9 @@ import {
   Twitter,
   Instagram,
   Linkedin,
-  Youtube,
+  Mail,
+  Phone,
+  Facebook,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -31,10 +33,11 @@ export default function NavigationMenu({
   ];
 
   const socialIcons = [
-    { icon: Twitter, href: "#" },
     { icon: Instagram, href: "#" },
     { icon: Linkedin, href: "#" },
-    { icon: Youtube, href: "#" },
+    { icon: Facebook, href: "#" },
+    { icon: Mail, href: "mailto:painfreephysiodrpriyanka@gmail.com" },
+    { icon: Phone, href: "tel:+917078571204" },
   ];
 
   // Smooth-scroll to in-page anchors and close overlay

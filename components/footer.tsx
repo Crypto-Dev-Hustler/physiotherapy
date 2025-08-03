@@ -42,8 +42,8 @@ export function Footer() {
                 <span className="sr-only">Instagram</span>
               </Link>
               <Link href="#" className="text-gray-300 hover:text-white">
-                <Youtube className="h-5 w-5" />
-                <span className="sr-only">YouTube</span>
+                <Mail className="h-5 w-5" />
+                <span className="sr-only">Mail</span>
               </Link>
             </div>
           </div>
@@ -53,19 +53,31 @@ export function Footer() {
             <ul className="space-y-3 text-gray-300">
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 mt-1 flex-shrink-0" />
-                <span>
-                  pain free rehab and physiotherapy center <br /> 2781 ground
-                  floor nearby Amity global school sector 46
-                </span>
-            
+                <a
+                  href="https://maps.app.goo.gl/3RqwvJ7sJ5TYwimp6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-blue-400 underline">
+                    pain free rehab and physiotherapy center <br /> 2781 ground
+                    floor nearby Amity global school sector 46
+                  </span>
+                </a>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 flex-shrink-0" />
-                <span>+91 7078571204</span>
+                <a href="tel:+917078571204" className="text-blue-400 underline">
+                  <span>+91 7078571204</span>
+                </a>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 flex-shrink-0" />
-                <span>painfreephysiodrpriyanka@gmail.com</span>
+                <a
+                  href="mailto:painfreephysiodrpriyanka@gmail.com"
+                  className="text-blue-400 underline"
+                >
+                  <span>painfreephysiodrpriyanka@gmail.com</span>
+                </a>
               </li>
             </ul>
           </div>

@@ -330,32 +330,32 @@ export default function Book() {
             <p className="text-gray-600 mb-6">
               Your appointment has been successfully booked.
             </p>
-            <div className="text-left bg-gray-50 p-4 rounded-lg mb-6">
+            {/* <div className="text-left bg-gray-50 p-4 rounded-lg mb-6">
               <p>
-                <strong>ID:</strong> {appointmentDetails?.id}
+                <strong>ID:</strong> {appointmentDetails?.id || "--"}
               </p>
               <p>
-                <strong>Name:</strong> {appointmentDetails?.name}
+                <strong>Name:</strong> {appointmentDetails?.name || "--"}
               </p>
               <p>
-                <strong>Phone:</strong> {appointmentDetails?.phone}
+                <strong>Phone:</strong> {appointmentDetails?.phone || "--"}
               </p>
               <p>
-                <strong>Age:</strong> {appointmentDetails?.age}
+                <strong>Age:</strong> {appointmentDetails?.age || "--"}
               </p>
               <p>
-                <strong>Gender:</strong> {appointmentDetails?.gender}
+                <strong>Gender:</strong> {appointmentDetails?.gender || "--"}
               </p>
               <p>
-                <strong>Date:</strong> {appointmentDetails?.date}
+                <strong>Date:</strong> {appointmentDetails?.date || "--"}
               </p>
               <p>
-                <strong>Time:</strong> {appointmentDetails?.time}
+                <strong>Time:</strong> {appointmentDetails?.time || "--"}
               </p>
               <p>
-                <strong>Status:</strong> {appointmentDetails?.status}
+                <strong>Status:</strong> {appointmentDetails?.status || "--"}
               </p>
-            </div>
+            </div> */}
             <div className="flex gap-4 justify-center">
               <Button onClick={resetForm} variant="outline">
                 Book Another
@@ -415,7 +415,7 @@ export default function Book() {
                               date.isPastDate
                                 ? "text-gray-300 bg-gray-50"
                                 : date.isSelected
-                                ? "bg-orange-500 text-white border-orange-500"
+                                ? "bg-[#81b342] text-white border-[#81b342]-500"
                                 : date.isToday
                                 ? "bg-blue-50 text-blue-600 border-blue-300"
                                 : "text-gray-700 border-gray-200"
@@ -433,6 +433,7 @@ export default function Book() {
                     /* Desktop calendar (kept as is for simplicity) */
                     <div className="text-gray-600">
                       Desktop calendar here...
+                      <input type="date" name="calender" id="calender" />
                     </div>
                   )}
                 </div>
