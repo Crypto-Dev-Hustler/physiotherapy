@@ -5,7 +5,8 @@ import "./globals.css";
 import ClientWrapper from "@/components/client-wrapper"; // Client logic moved here
 
 export const metadata: Metadata = {
-  title: "Physiotherapy Center | Best Physiotherapist in Gurgaon",
+  title:
+    "PainFree Rehab and Physiotherapy Center",
   description:
     "Expert physiotherapy services focused on pain relief, injury recovery, and physical wellness. Personalized treatment plans by certified professionals.",
   verification: {
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   },
   other: {
     keywords:
-      "physiotherapy, Meerut, pain relief, physical therapy, injury recovery, Back Pain Physiotherapy | PainFree Rehab Center | Painfree in Gurgaon | Painmukit in Gurgaon| best pain center in gurgaon |Best Physiotherapist for back pain",
+      "physiotherapy, Meerut, pain relief, physical therapy, injury recovery, Back Pain Physiotherapy | PainFree Rehab Center | Painfree in Gurgaon | Painmukit in Gurgaon| best pain center in gurgaon |Best Physiotherapist for back pain | Painfree clinic| Painfree Rehab clinic| Best Pain Free rehab center in gurugram",
   },
 };
 

@@ -57,6 +57,15 @@ export function Footer() {
                   pain free rehab and physiotherapy center <br /> 2781 ground
                   floor nearby Amity global school sector 46
                 </span>
+                <iframe
+                  src="https://www.google.com/maps/place/PainFree+Rehab+%26+Physiotherapy+Center+%E2%80%93+Dr.+Priyanka+Kashyap/@28.4365439,77.0609437,17z/data=!4m14!1m7!3m6!1s0x390d19895ab79fb3:0xbbf4fcbfb3cdd7b7!2sPainFree+Rehab+%26+Physiotherapy+Center+%E2%80%93+Dr.+Priyanka+Kashyap!8m2!3d28.4365439!4d77.0635186!16s%2Fg%2F11k3vy7jm3!3m5!1s0x390d19895ab79fb3:0xbbf4fcbfb3cdd7b7!8m2!3d28.4365439!4d77.0635186!16s%2Fg%2F11k3vy7jm3?entry=ttu&g_ep=EgoyMDI1MDczMC4wIKXMDSoASAFQAw%3D%3D"
+                  width="100%"
+                  height="200"
+                  style={{ border: 0 }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 flex-shrink-0" />
