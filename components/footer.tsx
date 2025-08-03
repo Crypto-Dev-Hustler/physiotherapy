@@ -8,7 +8,7 @@ import {
   Facebook,
   Twitter,
   Instagram,
-  Youtube,
+
   Lock,
 } from "lucide-react";
 import { useRouter } from "next/navigation";

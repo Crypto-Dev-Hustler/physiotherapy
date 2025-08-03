@@ -2,7 +2,6 @@
 import {
   X,
   ArrowRight,
-  Twitter,
   Instagram,
   Linkedin,
   Mail,
