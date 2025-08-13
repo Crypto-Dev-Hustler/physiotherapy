@@ -8,7 +8,6 @@ import {
   Facebook,
   Twitter,
   Instagram,
-
   Lock,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -33,17 +32,13 @@ export function Footer() {
                 <Facebook className="h-5 w-5" />
                 <span className="sr-only">Facebook</span>
               </Link>
-              <Link href="#" className="text-gray-300 hover:text-white">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link href="#" className="text-gray-300 hover:text-white">
+
+              <Link
+                href="https://www.instagram.com/god_gift_child45?utm_source=qr&igsh=cHNxOWVwMWNrYmI="
+                className="text-gray-300 hover:text-white"
+              >
                 <Instagram className="h-5 w-5" />
                 <span className="sr-only">Instagram</span>
-              </Link>
-              <Link href="#" className="text-gray-300 hover:text-white">
-                <Mail className="h-5 w-5" />
-                <span className="sr-only">Mail</span>
               </Link>
             </div>
           </div>

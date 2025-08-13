@@ -32,8 +32,10 @@ export default function NavigationMenu({
   ];
 
   const socialIcons = [
-    { icon: Instagram, href: "#" },
-    { icon: Linkedin, href: "#" },
+    {
+      icon: Instagram,
+      href: "https://www.instagram.com/god_gift_child45?utm_source=qr&igsh=cHNxOWVwMWNrYmI=",
+    },
     { icon: Facebook, href: "#" },
     { icon: Mail, href: "mailto:painfreephysiodrpriyanka@gmail.com" },
     { icon: Phone, href: "tel:+917078571204" },
@@ -144,6 +146,12 @@ export default function NavigationMenu({
               <a
                 key={`${social.href}-${index}`}
                 href={social.href}
+                target={social.href.startsWith("http") ? "_blank" : undefined}
+                rel={
+                  social.href.startsWith("http")
+                    ? "noopener noreferrer"
+                    : undefined
+                }
                 className={`block text-[#81b342] hover:text-gray-900 transition-all duration-700
                 ${
                   isOpen
@@ -179,7 +187,7 @@ export default function NavigationMenu({
               }`}
               style={{ transitionDelay: isOpen ? "800ms" : "0ms" }}
             >
-              CONTACT US
+              Schedule a Visit
               <ArrowRight className="ml-2" size={20} />
             </Button>
           </a>
