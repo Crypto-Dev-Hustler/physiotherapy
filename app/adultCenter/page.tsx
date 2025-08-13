@@ -17,6 +17,15 @@ export default function Adult() {
     <div>
       <Head>
         <link rel="canonical" href={canonicalUrl} />
+
+        <meta property="og:title" content="PainFree Rehab Center – Adult Physiotherapy in Gurgaon" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://www.painfreerehabcenter.in/public/scroll1.jpg" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:description" content="Expert adult physiotherapy & rehabilitation in Gurgaon. Book your session at PainFree Rehab Center for pain relief, recovery, and wellness." />
+
+        {/* Recommended: Site name for branding */}
+        <meta property="og:site_name" content="PainFree Rehab Center" />
       </Head>
       <AdultNavbar />
       <AdultHero />
