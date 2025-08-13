@@ -6,7 +6,6 @@ import {
   Mail,
   MapPin,
   Facebook,
-  Twitter,
   Instagram,
   Lock,
 } from "lucide-react";

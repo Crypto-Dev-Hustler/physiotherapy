@@ -3,7 +3,6 @@ import {
   X,
   ArrowRight,
   Instagram,
-  Linkedin,
   Mail,
   Phone,
   Facebook,
