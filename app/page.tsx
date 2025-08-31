@@ -73,7 +73,7 @@ export default function Home() {
     <div className="">
       <Head>
         <link rel="canonical" href={canonicalUrl} />
-
+        <meta name="google-site-verification" content="GzssgWMeoX8k9oOCItGPin-uxa5nMdZmEOLT3IIgLXw" />
         <meta
           property="og:title"
           content="Painfree Rehab Center – Heal, Strengthen, Thrive"
