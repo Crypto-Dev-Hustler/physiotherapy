@@ -11,6 +11,7 @@ export default function ClientWrapper({
 }) {
   const pathname = usePathname();
   const isAdminPage = pathname.startsWith("/adminBoard");
+  const isChildPage = pathname.startsWith("/childCenter");
 
   useEffect(() => {
     if ("scrollRestoration" in history) {
@@ -32,7 +33,7 @@ export default function ClientWrapper({
 
   return (
     <>
-      {!isAdminPage && <Navbar />}
+      {(!isAdminPage && !isChildPage && <Navbar />)}
       {children}
     </>
   );

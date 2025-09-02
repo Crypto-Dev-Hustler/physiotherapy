@@ -45,14 +45,6 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
                   className="w-full h-full object-cover"
                 />
               </div>
-
-              {/* Info */}
-              {/* <div className="h-[0%] p-6 flex flex-col justify-center gap-2">
-                <h3 className="text-xl font-bold text-gray-800">
-                  {card.title}
-                </h3>
-                <p className="text-gray-600 text-sm">{card.description} </p>
-              </div> */}
             </div>
           ))}
         </motion.div>

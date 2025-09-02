@@ -9,6 +9,8 @@ import Link from "next/link";
 import Head from "next/head";
 import { usePathname } from "next/navigation";
 
+import { childTherapyImages } from "./childComponents/childDetails";
+
 const therapies = [
   {
     icon: <Puzzle className="h-8 w-8 text-blue-600" />,
@@ -76,13 +78,13 @@ export function ChildSection() {
 
       <div className="relative z-20 w-full text-center py-10 lg:py-16">
         <div className="text-[50px] font-bold">Child Therapies</div>
-        {/* </ScrollFloat> */}
-
-        {/* Image Slider */}
         <div className="mt-10 flex justify-center">
-          <ImageSlider maxWidthClass="max-w-xl" heightClass="h-[275px]" />
+          <ImageSlider
+            images={childTherapyImages}
+            heightClass="h-[300px] md:h-[400px]"
+            maxWidthClass="max-w-5xl"
+          />
         </div>
-
         {/* Description & Features */}
         <div className="mt-8 max-w-2xl mx-auto text-gray-700 text-lg leading-relaxed text-left px-4 sm:px-0">
           <p className="mb-6">

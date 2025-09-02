@@ -1,14 +1,9 @@
 "use client";
-import {
-  X,
-  ArrowRight,
-  Instagram,
-  Mail,
-  Phone,
-  Facebook,
-} from "lucide-react";
+import { X, ArrowRight, Instagram, Mail, Phone, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import type { MouseEvent } from "react";
 
 type NavigationMenuProps = {
@@ -16,28 +11,58 @@ type NavigationMenuProps = {
   onClose: () => void;
 };
 
-type NavItem = { label: string; href: `#${string}` }; // enforce #hash
+type NavItem = {
+  label: string;
+  href: `#${string}` | string;
+  isExternal?: boolean;
+};
 
 export default function NavigationMenu({
   isOpen,
   onClose,
 }: NavigationMenuProps) {
-  // EDIT your section targets here (ids must exist in the page)
-  const navigationItems: NavItem[] = [
-    { label: "Home.", href: "#home" },
-    { label: " Adults.", href: "#adult" },
-    { label: "Childern.", href: "#child" },
-    { label: "About.", href: "#adultdoctors" }, // NOTE: if your section id is "appointment", update both places
+  const pathname = usePathname();
+  const isChildPage = pathname.startsWith("/childCenter");
+
+  // Adult page navigation items
+  const adultNavigationItems: NavItem[] = [
+    { label: "Home.", href: "/", isExternal: true },
+    { label: "Adults.", href: "adultCenter", isExternal: true },
+    { label: "Children.", href: "/childCenter", isExternal: true },
+    { label: "About.", href: "#adultdoctors" },
   ];
+
+  // Child page navigation items
+  const childNavigationItems: NavItem[] = [
+    { label: "Home.", href: "/", isExternal: true },
+    { label: "Details.", href: "#childdetails" },
+    { label: "Services.", href: "#childservices" },
+    { label: "Doctors.", href: "#childdoctors" },
+    { label: "Adult.", href: "/adultCenter", isExternal: true },
+  ];
+
+  // Choose navigation items based on current page
+  const navigationItems = isChildPage
+    ? childNavigationItems
+    : adultNavigationItems;
 
   const socialIcons = [
     {
       icon: Instagram,
       href: "https://www.instagram.com/god_gift_child45?utm_source=qr&igsh=cHNxOWVwMWNrYmI=",
     },
-    { icon: Facebook, href: "#" },
-    { icon: Mail, href: "mailto:painfreephysiodrpriyanka@gmail.com" },
-    { icon: Phone, href: "tel:+917078571204" },
+    {
+      icon: Facebook,
+      href: "https://www.facebook.com/profile.php?id=61579095523663",
+    },
+    {
+      icon: Mail,
+      href: "mailto:painfreephysiodrpriyanka@gmail.com",
+    },
+    {
+      icon: Phone,
+      href: "tel:+917078571204",
+    },
   ];
 
   // Smooth-scroll to in-page anchors and close overlay
@@ -45,24 +70,25 @@ export default function NavigationMenu({
     e: MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    if (!href.startsWith("#")) return; // ignore non-hash links (not used here)
+    if (!href.startsWith("#")) return;
     e.preventDefault();
-    const id = href.replace(/^#/, ""); // support "#id" or "id"
+    const id = href.replace(/^#/, "");
     const el = document.getElementById(id);
-    // Close menu first (lets your exit animation start)
     onClose();
     if (el) {
-      // Smooth scroll after the next frame so the overlay can begin closing
       requestAnimationFrame(() => {
         el.scrollIntoView({ behavior: "smooth", block: "start" });
       });
-      // Update the URL hash without causing a jump
       history.replaceState(null, "", `#${id}`);
     }
   };
 
+  // Handle external/page navigation
+  const handleExternalClick = () => {
+    onClose();
+  };
+
   // Optional: smooth scrolling via CSS if you haven't set it globally
-  // You can also put `className="scroll-smooth"` on <html> in app/layout.tsx
   if (typeof document !== "undefined") {
     const html = document.documentElement;
     if (!html.style.scrollBehavior) {
@@ -71,25 +97,22 @@ export default function NavigationMenu({
   }
 
   return (
-    // Full-screen overlay to capture clicks outside the menu content
     <div
       className={`fixed inset-0 z-[100] transition-opacity duration-500
       ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
       role="dialog"
       aria-modal={isOpen ? true : undefined}
       aria-hidden={!isOpen}
-      onClick={onClose} // Close menu when clicking anywhere on this overlay
+      onClick={onClose}
     >
-      {/* Actual menu content, positioned and styled */}
       <div
         className={`absolute top-0 right-0 left-25 bottom-30 bg-white/70 rounded-3xl shadow-xl backdrop-blur-sm
         transition-all duration-500 ease-in-out transform
         ${isOpen ? "translate-x-0 scale-100" : "translate-x-full scale-95"}`}
-        onClick={(e) => e.stopPropagation()} // Prevent clicks on menu content from closing the menu
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Header with close + logo */}
         <div className="flex justify-between items-end p-6">
-          {/* Exchanged positions: Close button first, then Logo */}
           <button
             onClick={onClose}
             className={`relative z-20 text-[#81b342] hover:text-gray-700 transition-all duration-500 delay-100
@@ -114,26 +137,48 @@ export default function NavigationMenu({
         {/* Main navigation */}
         <div className="flex flex-col justify-center items-start px-12 h-full -mt-20">
           <nav className="space-y-4">
-            {navigationItems.map((item, index) => (
-              <a
-                key={item.href}
-                href={item.href}
-                onClick={(e) => handleAnchorClick(e, item.href)}
-                className={`block text-4xl md:text-5xl lg:text-6xl font-bold text-[#81b342] hover:text-gray-900
-                transition-all duration-700 leading-tight
-                ${
-                  isOpen
-                    ? "opacity-100 translate-x-0"
-                    : "opacity-0 -translate-x-12"
-                }`}
-                style={{
-                  transitionDelay: isOpen ? `${100 + index * 100}ms` : "0ms",
-                }}
-                aria-label={`Go to ${item.label.replace(".", "")} section`}
-              >
-                {item.label}
-              </a>
-            ))}
+            {navigationItems.map((item, index) => {
+              const linkContent = (
+                <span
+                  className={`block text-4xl md:text-5xl lg:text-6xl font-bold text-[#81b342] hover:text-gray-900
+                  transition-all duration-700 leading-tight
+                  ${
+                    isOpen
+                      ? "opacity-100 translate-x-0"
+                      : "opacity-0 -translate-x-12"
+                  }`}
+                  style={{
+                    transitionDelay: isOpen ? `${100 + index * 100}ms` : "0ms",
+                  }}
+                >
+                  {item.label}
+                </span>
+              );
+
+              if (item.isExternal) {
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={handleExternalClick}
+                    aria-label={`Go to ${item.label.replace(".", "")} section`}
+                  >
+                    {linkContent}
+                  </Link>
+                );
+              }
+
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => handleAnchorClick(e, item.href)}
+                  aria-label={`Go to ${item.label.replace(".", "")} section`}
+                >
+                  {linkContent}
+                </a>
+              );
+            })}
           </nav>
         </div>
 
@@ -172,8 +217,8 @@ export default function NavigationMenu({
         {/* CTA */}
         <div className="fixed bottom-8 right-8">
           <a
-            href="#booking" // ✅ native hash link
-            onClick={onClose} // ✅ close menu
+            href="#booking"
+            onClick={onClose}
             aria-label="Go to appointment section"
           >
             <Button

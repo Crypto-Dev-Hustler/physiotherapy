@@ -1,14 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Phone,
-  Mail,
-  MapPin,
-  Facebook,
-  Instagram,
-  Lock,
-} from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Instagram, Lock } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -115,7 +108,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#child"
+                  href="/childCenter"
                   className="hover:text-white transition-colors"
                 >
                   Child physiotherapies
@@ -123,7 +116,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="#adult"
+                  href="/adultCenter"
                   className="hover:text-white transition-colors"
                 >
                   Adult Physiotherapies
