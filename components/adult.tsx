@@ -51,25 +51,37 @@ export function AdultSection() {
     {
       id: 1,
       title: "No Image",
-      url: "/scroll1.jpg",
+      url: "/adult/adult.jpg",
       description: "HelloWorld",
     },
     {
       id: 2,
       title: "No Image",
-      url: "/d02.jpg",
-      description: "",
+      url: "/adult/scroll1.jpg",
+      description: "HelloWorld",
     },
     {
       id: 3,
       title: "No Image",
-      url: "/scroll2.jpg",
-      description: "",
+      url: "/adult/scroll9.jpg",
+      description: "HelloWorld",
     },
     {
       id: 4,
       title: "No Image",
-      url: "/scroll3.jpg",
+      url: "/adult/scroll3.jpg",
+      description: "",
+    },
+    {
+      id: 5,
+      title: "No Image",
+      url: "/adult/scroll10.jpg",
+      description: "",
+    },
+    {
+      id: 6,
+      title: "No Image",
+      url: "/adult/scroll4.jpg",
       description: "",
     },
   ];

@@ -154,7 +154,7 @@ export default function ImageSlider({
             animate="center"
             exit="exit"
             transition={{
-              x: { type: "spring", stiffness: 300, damping: 30 },
+              x: { type: "spring", stiffness: 500, damping: 50 },
               opacity: { duration: 0.3 },
               scale: { duration: 0.3 },
             }}

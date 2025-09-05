@@ -15,6 +15,8 @@ const LazyComponent = dynamic(() => import("@/components/appoinment"), {
   ssr: false,
 });
 
+// import DesktopAlert from "@/components/DesktopAlert";
+
 export default function Home() {
   const pathname = usePathname().replace(/\/$/, "") || "/";
   const canonicalUrl = `https://www.painfreerehabcenter.in/${pathname}`;
@@ -73,7 +75,10 @@ export default function Home() {
     <div className="">
       <Head>
         <link rel="canonical" href={canonicalUrl} />
-        <meta name="google-site-verification" content="GzssgWMeoX8k9oOCItGPin-uxa5nMdZmEOLT3IIgLXw" />
+        <meta
+          name="google-site-verification"
+          content="GzssgWMeoX8k9oOCItGPin-uxa5nMdZmEOLT3IIgLXw"
+        />
         <meta
           property="og:title"
           content="Painfree Rehab Center – Heal, Strengthen, Thrive"
@@ -96,6 +101,7 @@ export default function Home() {
         />
       </Head>
       <HeroSection />
+      {/* <DesktopAlert /> */}
       <AdultSection />
       <ChildSection />
       <AdultDoctorsSection />

@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Navbar from "@/components/navbar";
+import DesktopAlert from "./DesktopAlert";
 
 export default function ClientWrapper({
   children,
@@ -33,7 +34,8 @@ export default function ClientWrapper({
 
   return (
     <>
-      {(!isAdminPage && !isChildPage && <Navbar />)}
+      <DesktopAlert />
+      {!isAdminPage && !isChildPage && <Navbar />}
       {children}
     </>
   );

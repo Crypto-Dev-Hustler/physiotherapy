@@ -42,11 +42,11 @@ const adultTherapyImages: ImageItem[] = [
     src: "/adult/scroll6.jpg",
     alt: "Balance and stability training",
   },
-  {
-    id: "adult-therapy-7",
-    src: "/adult/scroll7.jpg",
-    alt: "Assisted stretching techniques",
-  },
+  // {
+  //   id: "adult-therapy-7",
+  //   src: "/adult/scroll.jpg",
+  //   alt: "Assisted stretching techniques",
+  // },
   {
     id: "adult-therapy-8",
     src: "/adult/scroll8.jpg",

@@ -74,7 +74,7 @@ export function AdultHero() {
           {/* Background Image */}
           <div className="absolute inset-0 z-0 bg-gray-900">
             <Image
-              src="/scroll1.jpg"
+              src="/adult/scroll7.jpg"
               alt="adult Center"
               width={12000}
               height={800}
@@ -91,7 +91,7 @@ export function AdultHero() {
               as="h1"
               delayOffset={textStartDelay + 0.8}
             />
-            <p className="text-md lg:text-2xl text-[#ffff] mt-2 text-center max-w-2xl">
+            <p className="text-md lg:text-2xl text-[#ff0000] mt-2 text-center max-w-2xl">
               Your partner in rehabilitation and wellness
             </p>
           </div>
