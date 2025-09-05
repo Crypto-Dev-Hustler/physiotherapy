@@ -20,7 +20,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const handleRouteChange = () => {
       if (typeof window.fbq === "function") {
-        window.fbq("track", "PageView");
+        window.fbq("track", "ViewContent");
       }
     };
 
