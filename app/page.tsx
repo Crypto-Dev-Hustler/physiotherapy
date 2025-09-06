@@ -74,6 +74,10 @@ export default function Home() {
   return (
     <div className="">
       <Head>
+        <meta
+          name="facebook-domain-verification"
+          content="9menx4w53hqi6bbekhigwr37lxyciy"
+        />g
         <link rel="canonical" href={canonicalUrl} />
         <meta
           name="google-site-verification"
