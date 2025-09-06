@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-const PIXEL_ID = "1059018886065509"; // 🔑 Replace with your Meta Pixel ID
+const PIXEL_ID = "1059018886065509"; // 🔑 Replace with your Pixel ID
 
 export default function ClientWrapper({
   children,
@@ -23,6 +23,10 @@ export default function ClientWrapper({
   const pathname = usePathname();
   const isAdminPage = pathname.startsWith("/adminBoard");
   const isChildPage = pathname.startsWith("/childCenter");
+
+  // ✅ Build canonical URL (remove trailing slash safely)
+  const cleanPath = pathname.replace(/\/$/, "") || "/";
+  const canonicalUrl = `https://www.painfreerehabcenter.in${cleanPath}`;
 
   // ✅ Scroll restoration
   useEffect(() => {
@@ -44,7 +48,20 @@ export default function ClientWrapper({
     return () => window.removeEventListener("resize", setVh);
   }, []);
 
-  // ✅ Track route changes (SPA navigation)
+  // ✅ Inject canonical link dynamically
+  useEffect(() => {
+    let link =
+      document.querySelector<HTMLLinkElement>("link[rel='canonical']");
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "canonical";
+      document.head.appendChild(link);
+    }
+    link.href = canonicalUrl;
+    console.log("🔗 Canonical URL set:", canonicalUrl);
+  }, [canonicalUrl]);
+
+  // ✅ Track route changes
   useEffect(() => {
     if (typeof window.fbq === "function") {
       window.fbq("track", "PageView");
