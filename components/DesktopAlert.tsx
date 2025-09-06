@@ -31,7 +31,7 @@ const DesktopAlert: React.FC = () => {
         zIndex: 9999,
       }}
     >
-      For a better experience, please open this website on a mobile device.
+      For a better experience, please open this website on a Mobile device.
     </div>
   );
 };
