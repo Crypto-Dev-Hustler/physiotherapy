@@ -3,6 +3,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ClientWrapper from "@/components/client-wrapper"; // Client logic moved here
+import { usePathname } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "PainFree Rehab & Physiotherapy Center | Gurgaon",
@@ -28,8 +29,37 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname().replace(/\/$/, "") || "/";
+  const canonicalUrl = `https://www.painfreerehabcenter.in/${pathname}`;
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <meta
+          name="facebook-domain-verification"
+          content="9menx4w53hqi6bbekhigwr37lxyciy"
+        />
+        g
+        <link rel="canonical" href={canonicalUrl} />
+        <meta
+          name="google-site-verification"
+          content="GzssgWMeoX8k9oOCItGPin-uxa5nMdZmEOLT3IIgLXw"
+        />
+        <meta
+          property="og:title"
+          content="Painfree Rehab Center – Heal, Strengthen, Thrive"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.painfreerehabcenter.in" />
+        <meta
+          property="og:image"
+          content="https://www.painfreerehabcenter.in/logo.png"
+        />
+        <meta
+          property="og:description"
+          content="Expert physiotherapy care in Gurugram. Book appointments online and begin your journey to recovery."
+        />
+        <meta property="og:site_name" content="Painfree Rehab Clinic" />
+      </head>
       <body className="antialiased">
         <ClientWrapper>{children}</ClientWrapper>
       </body>

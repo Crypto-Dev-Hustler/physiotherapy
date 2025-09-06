@@ -9,8 +9,7 @@ import { AdultSection } from "@/components/adult";
 import { Footer } from "@/components/footer";
 import AdultDoctorsSection from "@/components/about";
 import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
-import Head from "next/head";
+
 const LazyComponent = dynamic(() => import("@/components/appoinment"), {
   ssr: false,
 });
@@ -18,8 +17,7 @@ const LazyComponent = dynamic(() => import("@/components/appoinment"), {
 // import DesktopAlert from "@/components/DesktopAlert";
 
 export default function Home() {
-  const pathname = usePathname().replace(/\/$/, "") || "/";
-  const canonicalUrl = `https://www.painfreerehabcenter.in/${pathname}`;
+  
 
   const schema = {
     "@context": "https://schema.org",
@@ -73,37 +71,12 @@ export default function Home() {
 
   return (
     <div className="">
-      <Head>
-        <meta
-          name="facebook-domain-verification"
-          content="9menx4w53hqi6bbekhigwr37lxyciy"
-        />g
-        <link rel="canonical" href={canonicalUrl} />
-        <meta
-          name="google-site-verification"
-          content="GzssgWMeoX8k9oOCItGPin-uxa5nMdZmEOLT3IIgLXw"
-        />
-        <meta
-          property="og:title"
-          content="Painfree Rehab Center – Heal, Strengthen, Thrive"
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.painfreerehabcenter.in" />
-        <meta
-          property="og:image"
-          content="https://www.painfreerehabcenter.in/logo.png"
-        />
-        <meta
-          property="og:description"
-          content="Expert physiotherapy care in Gurugram. Book appointments online and begin your journey to recovery."
-        />
-        <meta property="og:site_name" content="Painfree Rehab Clinic" />
-
+      <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
-      </Head>
+      </head>
       <HeroSection />
       {/* <DesktopAlert /> */}
       <AdultSection />
