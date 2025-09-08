@@ -7,7 +7,7 @@ import ClientWrapper from "@/components/client-wrapper"; // Client logic moved h
 export const metadata: Metadata = {
   title: "PainFree Rehab & Physiotherapy Center | Gurgaon",
   description:
-    "Trusted physiotherapy in Gurgaon for adults and children. Pain relief, injury recovery, child care, and rehab with personalized expert treatment.",
+    "Dr. Priyanka Kashyap – Trusted physiotherapy in Gurgaon for adults & children. Pain relief, injury recovery, child care, and rehab care.",
   verification: {
     google: "gKoDb2boaAkFO_lnt6v_Tx1sGgFl4V5V29-6bihQlJc",
   },
