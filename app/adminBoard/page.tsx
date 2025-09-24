@@ -55,7 +55,7 @@ export default function DashboardPage() {
       console.log("Response status:", response.status);
       console.log("Response ok:", response.ok);
       const result = await response.json();
-      console.log("Response data:", result.data);
+   
       if (!response.ok) {
         throw new Error(result.error || "Failed to fetch appointments");
       }
