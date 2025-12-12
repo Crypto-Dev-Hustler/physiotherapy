@@ -41,13 +41,12 @@ export function Footer() {
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-3 mt-1 flex-shrink-0" />
                 <a
-                  href="https://maps.app.goo.gl/3RqwvJ7sJ5TYwimp6"
+                  href="https://maps.app.goo.gl/h6Dh5R99vmuDDBc7A"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <span className="text-blue-400 underline">
-                    pain free rehab and physiotherapy center <br /> 2781 ground
-                    floor nearby Amity global school sector 46
+                   House number 2525 ground floor nearby Amity international school sector 46
                   </span>
                 </a>
               </li>
