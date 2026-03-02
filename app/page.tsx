@@ -1,90 +1,58 @@
 "use client";
 
-// import Navbar from "@/components/navbar";
-import HeroSection from "@/components/hero";
-// import { Details } from "@/components/details";
-import { ChildSection } from "@/components/child";
-import { AdultSection } from "@/components/adult";
-// import Book from "@/components/appoinment";
-import { Footer } from "@/components/footer";
-import AdultDoctorsSection from "@/components/about";
+import Script from "next/script";
 import dynamic from "next/dynamic";
 
-const LazyComponent = dynamic(() => import("@/components/appoinment"), {
+import HeroSection from "@/components/hero";
+import { AdultSection } from "@/components/adult";
+
+
+import { ChildSection } from "@/components/child";
+import AdultDoctorsSection from "@/components/about";
+import { Footer } from "@/components/footer";
+
+// Lazy load heavy component (lag fix)
+const Appointment = dynamic(() => import("@/components/appoinment"), {
   ssr: false,
+  loading: () => <p className="text-center">Loading...</p>,
 });
 
-// import DesktopAlert from "@/components/DesktopAlert";
-
 export default function Home() {
-  
-
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Physiotherapist",
+    "@type": "Physiotherapy",
     name: "PainFree Rehab and Physiotherapy Center",
-    image: "https://www.painfreerehabcenter.in/logo.png",
-    "@id": "https://www.painfreerehabcenter.in",
     url: "https://www.painfreerehabcenter.in",
     telephone: "+91 7078571204",
+    image: "https://www.painfreerehabcenter.in/logo.png",
     address: {
       "@type": "PostalAddress",
-      streetAddress:
-        "pain free rehab and physiotherapy center 2781 ground floor nearby Amity global school sector 46",
+      streetAddress: "2781 Ground Floor, Near Amity Global School, Sector 46",
       addressLocality: "Gurugram",
-      addressRegion: "Gurugram, Haryana",
-      postalCode: "120001",
+      addressRegion: "Haryana",
+      postalCode: "122001",
       addressCountry: "IN",
     },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ],
-        opens: "09:00",
-        closes: "21:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Sunday",
-        opens: "09:00",
-        closes: "19:00",
-      },
-    ],
-    priceRange: "250₹",
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: "28.436647653555376",
-      longitude: " 77.06351859666862",
-    },
-    sameAs: [
-      "https://facebook.com/motioncareclinic",
-      "https://instagram.com/motioncareclinic",
-    ],
+    openingHours: "Mo-Sa 09:00-21:00, Su 09:00-19:00",
+    priceRange: "₹250",
   };
 
   return (
-    <div className="">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      </head>
+    <>
+      {/* ✅ Schema without lag */}
+      <Script
+        id="physio-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+
       <HeroSection />
-      {/* <DesktopAlert /> */}
       <AdultSection />
       <ChildSection />
       <AdultDoctorsSection />
-      <LazyComponent />
-      {/* <Book /> */}
+      <Appointment />
       <Footer />
-    </div>
+    </>
   );
 }

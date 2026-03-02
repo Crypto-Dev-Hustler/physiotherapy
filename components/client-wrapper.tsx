@@ -4,8 +4,6 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Script from "next/script";
-import Navbar from "@/components/navbar";
-import DesktopAlert from "./DesktopAlert";
 
 declare global {
   interface Window {
@@ -13,7 +11,7 @@ declare global {
   }
 }
 
-const PIXEL_ID = "1059018886065509"; // 🔑 Replace with your Pixel ID
+const PIXEL_ID = "1059018886065509";
 
 export default function ClientWrapper({
   children,
@@ -21,9 +19,7 @@ export default function ClientWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const isAdminPage = pathname.startsWith("/adminBoard");
-  const isChildPage = pathname.startsWith("/childCenter");
-
+  
   // ✅ Build canonical URL (remove trailing slash safely)
   const cleanPath = pathname.replace(/\/$/, "") || "/";
   const canonicalUrl = `https://www.painfreerehabcenter.in${cleanPath}`;
@@ -40,7 +36,7 @@ export default function ClientWrapper({
     const setVh = () => {
       document.documentElement.style.setProperty(
         "--vh",
-        `${window.innerHeight * 0.01}px`
+        `${window.innerHeight * 0.01}px`,
       );
     };
     setVh();
@@ -48,10 +44,12 @@ export default function ClientWrapper({
     return () => window.removeEventListener("resize", setVh);
   }, []);
 
+  useEffect(() => {
+    console.log("📍 Current pathname:", pathname);
+  }, [pathname]);
   // ✅ Inject canonical link dynamically
   useEffect(() => {
-    let link =
-      document.querySelector<HTMLLinkElement>("link[rel='canonical']");
+    let link = document.querySelector<HTMLLinkElement>("link[rel='canonical']");
     if (!link) {
       link = document.createElement("link");
       link.rel = "canonical";
@@ -109,9 +107,7 @@ export default function ClientWrapper({
         `}
       </Script>
 
-      {/* ✅ UI */}
-      <DesktopAlert />
-      {!isAdminPage && !isChildPage && <Navbar />}
+
       {children}
     </>
   );

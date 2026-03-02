@@ -1,12 +1,12 @@
 "use client";
+
 import Image from "next/image";
 import { Check, Droplets, Dumbbell, Zap, Waves } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import HorizontalScrollCarousel, { CardType } from "@/components/scroll-photo";
 import Link from "next/link";
-import Head from "next/head";
 import { usePathname } from "next/navigation";
+import LogoSection from "./LogoSection";
 
 export function AdultSection() {
   const therapies = [
@@ -38,7 +38,7 @@ export function AdultSection() {
       icon: <Droplets className="h-8 w-8 text-blue-600" />,
       title: "Post-Surgical Rehab",
       description:
-        "Rebuild strength and restore movement after orthopedic or other surgeries.",
+        "Rebuild strength and restore movement after orthopedic surgeries.",
     },
     {
       icon: <Droplets className="h-8 w-8 text-blue-600" />,
@@ -47,122 +47,82 @@ export function AdultSection() {
         "Tailored interventions for arthritis, balance issues, and chronic pain.",
     },
   ];
-  const cardData: CardType[] = [
-    {
-      id: 1,
-      title: "No Image",
-      url: "/adult/adult.jpg",
-      description: "HelloWorld",
-    },
-    {
-      id: 2,
-      title: "No Image",
-      url: "/adult/scroll1.jpg",
-      description: "HelloWorld",
-    },
-    {
-      id: 3,
-      title: "No Image",
-      url: "/adult/scroll9.jpg",
-      description: "HelloWorld",
-    },
-    {
-      id: 4,
-      title: "No Image",
-      url: "/adult/scroll3.jpg",
-      description: "",
-    },
-    {
-      id: 5,
-      title: "No Image",
-      url: "/adult/scroll10.jpg",
-      description: "",
-    },
-    {
-      id: 6,
-      title: "No Image",
-      url: "/adult/scroll4.jpg",
-      description: "",
-    },
-  ];
-  const pathname = usePathname().replace(/\/$/, "") || "/"; // Dynamically get current path
-  const canonicalUrl = `https://www.painfreerehabcenter.in/${pathname}`;
+
+  const pathname = usePathname().replace(/\/$/, "") || "/";
+  const canonicalUrl = `https://www.painfreerehabcenter.in${pathname}`;
+
   return (
     <>
-      <Head>
-        <link rel="canonical" href={canonicalUrl} />
-      </Head>
-      {/* Intro content */}
+      {/* lightweight canonical */}
+      <link rel="canonical" href={canonicalUrl} />
+
       <section
         id="adult"
-        className="relative flex flex-col lg:flex-row w-full min-h-[calc(var(--vh)*100)] bg-white pb-10 "
+        className="relative w-full min-h-screen bg-white pb-10 overflow-hidden"
       >
+        {/* Background Image (optimized) */}
         <Image
-          alt="Abstract background pattern"
+          alt="Adult physiotherapy background"
           src="/images/download (8).jpeg"
           fill
-          priority
-          style={{ objectFit: "cover", objectPosition: "center" }}
-          className="absolute inset-0 z-0"
+          sizes="100vw"
+          className="absolute inset-0 object-cover"
         />
-        {/* Blur Overlay */}
-        <div className="absolute inset-0 z-10 backdrop-blur-sm bg-white/10" />
-        <section className="relative my-1 ">
-          <div className="relative z-50 max-w-4xl bg-white/10 mx-auto text-center backdrop-blur-sm">
-            <div className="text-[50px] font-bold"> Adult Therapies</div>
-            <p className="">
-              Our adult physiotherapy services focus on rehabilitation, pain
-              management, and improving mobility for various conditions. Our
-              experienced therapists develop personalized treatment plans to
-              help you recover and regain your quality of life.
-            </p>
-          </div>
-        </section>
-        {/* Horizontal Carousel */}
-        {/* Rest of therapy content */}
-        <section className="bg-white/10 py-[-10] px-4 text-center z-15 backdrop-blur-sm">
-          <HorizontalScrollCarousel cards={cardData} />
-          <h2 className="text-3xl z-5 font-bold mb-6">
-            Explore More Therapies
-          </h2>
-          <p className="mb-10 max-w-2xl mx-auto text-gray-600">
-            We offer a wide range of evidence-based physiotherapy treatments...
+
+        {/* Optimized Blur Layer (static) */}
+        <div className="absolute inset-0 bg-white/30 backdrop-blur-sm pointer-events-none" />
+
+        {/* Header */}
+        <div className="relative z-10 max-lg: mx-auto text-center py-12 px-4">
+          <h2 className="text-5xl font-bold mb-4">Adult Therapies</h2>
+          <LogoSection />
+          <p>
+            Our adult physiotherapy services focus on rehabilitation, pain
+            management, and improving mobility for various conditions.
           </p>
-          {/* Your therapy cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <div className="space-y-3 mb-8">
+        </div>
+
+        {/* Content */}
+        <section className="relative z-10 px-4 mt-12">
+          <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8">
+            <div className="space-y-2">
               {[
-                "Personalized treatment plans tailored to your specific needs",
-                "Advanced techniques for pain management and mobility improvement",
-                "Rehabilitation for injuries, surgeries, and chronic conditions",
-                "Specialized programs for seniors and athletes",
-                "Evidence-based approaches for optimal recovery outcomes",
+                "Personalized care for faster recovery",
+                "Safe and effective pain relief",
+                "Expert help after injury or surgery",
+                "Special programs for seniors and athletes",
+                "Modern techniques backed by science",
+                "Hands-on therapy by skilled professionals",
+                "Improve movement, strength, and balance",
+                "Correct posture and daily habits",
+                "Get back to your active lifestyle",
+                "Friendly, one-on-one therapy sessions",
+                "Individualized physiotherapy treatment plans",
+                "Evidence-based pain management protocols",
+                "Post-operative and injury rehabilitation",
+                "Musculoskeletal and neurological care",
+                "Geriatric and sports physiotherapy programs",
+                "Manual therapy and advanced modalities",
+                "Mobility, strength, and flexibility training",
+                "Postural assessment and correction",
+                "Functional movement restoration",
+                "Clinically supervised recovery sessions",
               ].map((point, i) => (
-                <div key={i} className="flex items-start gap-2">
-                  <Check className="h-5 w-5 text-blue-600 flex-shrink-0 mt-1" />
+                <div key={i} className="flex gap-2">
+                  <Check className="h-5 w-5 text-blue-600 mt-1" />
                   <span>{point}</span>
                 </div>
               ))}
             </div>
-            {/* Therapy Cards */}
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Our Therapies
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                We offer a wide range of evidence-based physiotherapy treatments
-                to address various conditions and help you achieve your health
-                goals.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div className="grid md:grid-cols-2 gap-6">
               {therapies.map((therapy, index) => (
                 <Card
                   key={index}
-                  className="border-t-4 border-t-gray-900 hover:shadow-lg transition-shadow"
+                  className="border-t-4 border-t-gray-900 hover:shadow-md transition-shadow duration-300"
                 >
                   <CardHeader>
-                    <div className="mb-2">{therapy.icon}</div>
+                    {therapy.icon}
                     <CardTitle>{therapy.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -171,16 +131,18 @@ export function AdultSection() {
                 </Card>
               ))}
             </div>
-            {/* CTA Button */}
-            <div className="text-center">
-              <Button
-                asChild // Use asChild to render the Link component as the button
-                className="my-6 bg-white/50 hover:bg-white/70 text-[#81b342] border border-[#81b342]/50 backdrop-blur-sm
-                  px-8 py-3 rounded-full text-lg font-medium transition-all duration-700 hover:scale-105"
-              >
-                <Link href={"/adultCenter"}>Know More</Link>
-              </Button>
-            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center mt-12">
+            <Button
+              asChild
+              className="bg-white/60 hover:bg-white/80 text-[#81b342]
+              border border-[#81b342]/50 px-8 py-3 rounded-full text-lg
+              transition-transform duration-300 hover:scale-105"
+            >
+              <Link href="/adultCenter">Know More</Link>
+            </Button>
           </div>
         </section>
       </section>

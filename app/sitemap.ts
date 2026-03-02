@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 
-const WEBSITE_URL = "https://yourwebsite.com" // IMPORTANT: Replace with your actual website URL
+const WEBSITE_URL = "https://painfreerehabcenter.com" // IMPORTANT: Replace with your actual website URL
 
 export function sitemap(): MetadataRoute.Sitemap {
   return [
