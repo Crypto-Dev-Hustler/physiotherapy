@@ -4,7 +4,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Script from "next/script";
-
+import Navbar from "./navbar";
 declare global {
   interface Window {
     fbq: any;
@@ -19,7 +19,7 @@ export default function ClientWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  
+
   // ✅ Build canonical URL (remove trailing slash safely)
   const cleanPath = pathname.replace(/\/$/, "") || "/";
   const canonicalUrl = `https://www.painfreerehabcenter.in${cleanPath}`;
@@ -106,8 +106,7 @@ export default function ClientWrapper({
           fbq('track', 'PageView');
         `}
       </Script>
-
-
+      <Navbar />
       {children}
     </>
   );

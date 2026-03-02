@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/navbar";
+
 import ClientWrapper from "@/components/client-wrapper";
 
 export const metadata: Metadata = {
@@ -38,7 +38,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="antialiased">
-        <Navbar />
         <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>
