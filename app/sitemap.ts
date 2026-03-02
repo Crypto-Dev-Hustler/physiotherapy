@@ -1,8 +1,8 @@
-import type { MetadataRoute } from "next"
+import type { MetadataRoute } from "next";
 
-const WEBSITE_URL = "https://painfreerehabcenter.com" // IMPORTANT: Replace with your actual website URL
+const WEBSITE_URL = "https://painfreerehabcenter.com"; // IMPORTANT: Replace with your actual website URL
 
-export function sitemap(): MetadataRoute.Sitemap {
+export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: WEBSITE_URL,
@@ -36,5 +36,5 @@ export function sitemap(): MetadataRoute.Sitemap {
     //   changeFrequency: 'weekly',
     //   priority: 0.9,
     // },
-  ]
+  ];
 }
